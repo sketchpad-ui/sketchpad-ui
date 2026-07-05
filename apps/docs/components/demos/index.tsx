@@ -2,16 +2,28 @@
 
 import { useState } from 'react';
 import {
+  Accordion,
+  Alert,
   AlertDialog,
+  Attachment,
   Avatar,
   Badge,
+  Bubble,
   Breadcrumbs,
   Button,
+  Card,
   Checkbox,
+  Collapsible,
   Drawer,
   Divider,
   EmptyState,
+  Field,
   IconButton,
+  Kbd,
+  Label,
+  Marker,
+  Message,
+  MessageScroller,
   Modal,
   Pagination,
   Paper,
@@ -22,6 +34,7 @@ import {
   Sidebar,
   SkeletonLoader,
   Slider,
+  Spinner,
   StatCard,
   Table,
   Tabs,
@@ -216,9 +229,148 @@ export function EmptyDemo() {
 export function CardDemo() {
   return (
     <DemoBlock>
+      <div className="demoStack" style={{ maxWidth: 420 }}>
+        <Card title="Project summary" description="Sketch-framed card with header and footer slots." footer={<Button size="sm">Save</Button>}>
+          <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--sk-colors-inkSoft)' }}>
+            Use Card for grouped content. Paper and StatCard remain available for simpler layouts.
+          </p>
+        </Card>
+        <div className="demoRow">
+          <Paper seed="doc-card" style={{ padding: 16, minWidth: 160 }}>Paper</Paper>
+          <StatCard value="1.2k" label="Users" trend="up" />
+        </div>
+      </div>
+    </DemoBlock>
+  );
+}
+
+export function AlertDemo() {
+  return (
+    <DemoBlock>
+      <div className="demoStack">
+        <Alert title="Heads up">Your sketch export is ready to download.</Alert>
+        <Alert variant="destructive" title="Error">Something went wrong. Try again.</Alert>
+      </div>
+    </DemoBlock>
+  );
+}
+
+export function SpinnerDemo() {
+  return (
+    <DemoBlock>
       <div className="demoRow">
-        <Paper seed="doc-card" style={{ padding: 16, minWidth: 200 }}>Paper surface</Paper>
-        <StatCard value="1.2k" label="Users" trend="up" />
+        <Spinner size="sm" />
+        <Spinner size="md" />
+        <Spinner size="lg" />
+      </div>
+    </DemoBlock>
+  );
+}
+
+export function KbdDemo() {
+  return (
+    <DemoBlock>
+      <p style={{ margin: 0 }}>
+        Press <Kbd>⌘</Kbd> + <Kbd>K</Kbd> to open the command palette.
+      </p>
+    </DemoBlock>
+  );
+}
+
+export function LabelDemo() {
+  return (
+    <DemoBlock>
+      <Label htmlFor="demo-label-input" required>
+        Username
+      </Label>
+      <TextInput id="demo-label-input" placeholder="batman" seed="label-demo" />
+    </DemoBlock>
+  );
+}
+
+export function FieldDemo() {
+  return (
+    <DemoBlock>
+      <Field label="Email" hint="We never share your email." error="">
+        <TextInput placeholder="you@example.com" seed="field-demo" />
+      </Field>
+    </DemoBlock>
+  );
+}
+
+export function AccordionDemo() {
+  return (
+    <DemoBlock>
+      <Accordion
+        items={[
+          { id: 'a', title: 'What is Sketchpad UI?', content: 'A hand-sketched React component library.' },
+          { id: 'b', title: 'Is it accessible?', content: 'Components follow WCAG patterns with keyboard support.' },
+        ]}
+      />
+    </DemoBlock>
+  );
+}
+
+export function CollapsibleDemo() {
+  return (
+    <DemoBlock>
+      <Collapsible trigger="Show details">
+        <p style={{ margin: 0 }}>Extra content revealed with a sketch chevron trigger.</p>
+      </Collapsible>
+    </DemoBlock>
+  );
+}
+
+export function BubbleDemo() {
+  return (
+    <DemoBlock>
+      <div className="demoStack">
+        <Bubble variant="received">Hey, did you see the new components?</Bubble>
+        <Bubble variant="sent">Yes. They look great in dark mode.</Bubble>
+      </div>
+    </DemoBlock>
+  );
+}
+
+export function MessageDemo() {
+  return (
+    <DemoBlock>
+      <Message author="Alex" time="2:41 PM" align="received">
+        Sketch borders on every message.
+      </Message>
+    </DemoBlock>
+  );
+}
+
+export function MessageScrollerDemo() {
+  return (
+    <DemoBlock>
+      <MessageScroller
+        messages={[
+          { id: '1', content: 'Morning!', author: 'Alex', time: '9:00', align: 'received' },
+          { id: '2', content: 'Ready to ship v0.2?', author: 'You', time: '9:01', align: 'sent', status: 'read' },
+          { id: '3', content: 'Almost. Adding chat components now.', author: 'You', time: '9:02', align: 'sent', status: 'delivered' },
+        ]}
+      />
+    </DemoBlock>
+  );
+}
+
+export function AttachmentDemo() {
+  return (
+    <DemoBlock>
+      <Attachment name="wireframe-v2.png" fileSize="240 KB" onRemove={() => undefined} />
+    </DemoBlock>
+  );
+}
+
+export function MarkerDemo() {
+  return (
+    <DemoBlock>
+      <div className="demoRow">
+        <Marker status="sent" />
+        <Marker status="delivered" />
+        <Marker status="read" />
       </div>
     </DemoBlock>
   );
@@ -297,16 +449,29 @@ export function SeparatorDemo() {
 }
 
 export const componentDemos: Record<string, React.ComponentType> = {
+  accordion: AccordionDemo,
+  alert: AlertDemo,
+  attachment: AttachmentDemo,
+  bubble: BubbleDemo,
   button: ButtonDemo,
   badge: BadgeDemo,
   avatar: AvatarDemo,
+  card: CardDemo,
+  collapsible: CollapsibleDemo,
+  field: FieldDemo,
   input: InputDemo,
+  kbd: KbdDemo,
+  label: LabelDemo,
+  marker: MarkerDemo,
+  message: MessageDemo,
+  'message-scroller': MessageScrollerDemo,
   textarea: TextareaDemo,
   select: SelectDemo,
   checkbox: CheckboxDemo,
   'radio-group': RadioGroupDemo,
   switch: SwitchDemo,
   slider: SliderDemo,
+  spinner: SpinnerDemo,
   tabs: TabsDemo,
   breadcrumb: BreadcrumbDemo,
   pagination: PaginationDemo,
@@ -318,7 +483,6 @@ export const componentDemos: Record<string, React.ComponentType> = {
   progress: ProgressDemo,
   skeleton: SkeletonDemo,
   empty: EmptyDemo,
-  card: CardDemo,
   tooltip: TooltipDemo,
   popover: PopoverDemo,
   dialog: DialogDemo,

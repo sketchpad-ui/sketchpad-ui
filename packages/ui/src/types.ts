@@ -14,7 +14,7 @@ export interface SketchComponentProps {
 }
 
 export type SketchBorderVariant = 'rect' | 'rounded' | 'oval' | 'torn' | 'underline';
-export type SketchFill = 'none' | 'paper' | 'paperBright' | 'solid' | 'accent';
+export type SketchFill = 'none' | 'paper' | 'paperAlt' | 'paperBright' | 'solid' | 'accent';
 
 export interface SketchBorderProps extends SketchComponentProps {
   as?: ElementType;

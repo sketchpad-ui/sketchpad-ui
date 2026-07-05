@@ -37,6 +37,8 @@ function getFillColor(fill: SketchFill, accent?: AccentColor): string | 'none' {
   switch (fill) {
     case 'paper':
       return colorVars.paper;
+    case 'paperAlt':
+      return colorVars.paperAlt;
     case 'solid':
       return colorVars.paperBright;
     case 'paperBright':

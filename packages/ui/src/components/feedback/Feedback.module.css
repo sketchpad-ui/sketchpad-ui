@@ -1,0 +1,85 @@
+.alert {
+  padding: 0;
+}
+
+.alertInner {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 16px;
+}
+
+.alertIcon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--sk-colors-inkSoft);
+}
+
+.alertBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.alertTitle {
+  margin: 0 0 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--sk-colors-ink);
+}
+
+.alertText {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--sk-colors-inkSoft);
+  line-height: 1.5;
+}
+
+.spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sk-colors-ink);
+}
+
+.spinnerSm {
+  width: 18px;
+  height: 18px;
+}
+
+.spinnerMd {
+  width: 28px;
+  height: 28px;
+}
+
+.spinnerLg {
+  width: 40px;
+  height: 40px;
+}
+
+.spinnerArc {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  transform-origin: center;
+  animation: spin 900ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinnerArc {
+    animation: none;
+    opacity: 0.6;
+  }
+}

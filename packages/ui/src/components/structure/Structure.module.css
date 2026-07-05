@@ -1,0 +1,113 @@
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHeader {
+  padding: 16px 18px 0;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--sk-colors-ink);
+}
+
+.cardDescription {
+  margin: 6px 0 0;
+  font-size: 0.875rem;
+  color: var(--sk-colors-inkSoft);
+  line-height: 1.45;
+}
+
+.cardContent {
+  padding: 16px 18px;
+  flex: 1;
+}
+
+.cardFooter {
+  padding: 0 18px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.accordionItem {
+  overflow: hidden;
+}
+
+.accordionTrigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.925rem;
+  font-weight: 500;
+  color: var(--sk-colors-ink);
+  cursor: pointer;
+  text-align: left;
+  min-height: 44px;
+}
+
+.accordionTrigger:hover {
+  color: var(--sk-colors-inkSoft);
+}
+
+.accordionChevron {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  color: var(--sk-colors-pencil);
+  transition: transform 160ms ease;
+}
+
+.accordionChevronOpen {
+  transform: rotate(90deg);
+}
+
+.accordionPanel {
+  padding: 0 14px 14px;
+  font-size: 0.875rem;
+  color: var(--sk-colors-inkSoft);
+  line-height: 1.5;
+}
+
+.collapsibleTrigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--sk-colors-ink);
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.collapsibleContent {
+  margin-top: 8px;
+  font-size: 0.875rem;
+  color: var(--sk-colors-inkSoft);
+  line-height: 1.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordionChevron {
+    transition: none;
+  }
+}
