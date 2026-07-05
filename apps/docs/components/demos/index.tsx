@@ -6,25 +6,35 @@ import {
   Alert,
   AlertDialog,
   Attachment,
+  AspectRatio,
   Avatar,
   Badge,
   Bubble,
   Breadcrumbs,
   Button,
+  ButtonGroup,
   Card,
   Checkbox,
   Collapsible,
+  Command,
+  ContextMenu,
   Drawer,
   Divider,
+  DropdownMenu,
   EmptyState,
   Field,
+  HoverCard,
   IconButton,
+  InputGroup,
+  InputOTP,
+  Item,
   Kbd,
   Label,
   Marker,
   Message,
   MessageScroller,
   Modal,
+  NativeSelect,
   Pagination,
   Paper,
   Popover,
@@ -42,6 +52,7 @@ import {
   Textarea,
   ToastContainer,
   Toggle,
+  ToggleGroup,
   Tooltip,
   useToast,
   Navbar,
@@ -448,23 +459,186 @@ export function SeparatorDemo() {
   );
 }
 
+export function ButtonGroupDemo() {
+  const [v, setV] = useState('left');
+  return (
+    <DemoBlock>
+      <ButtonGroup
+        value={v}
+        onChange={setV}
+        items={[
+          { id: 'left', label: 'Left' },
+          { id: 'center', label: 'Center' },
+          { id: 'right', label: 'Right' },
+        ]}
+      />
+    </DemoBlock>
+  );
+}
+
+export function InputGroupDemo() {
+  return (
+    <DemoBlock>
+      <Field label="Website">
+        <InputGroup prefix="https://" suffix=".dev">
+          <TextInput placeholder="sketchpad" seed="ig-demo" />
+        </InputGroup>
+      </Field>
+    </DemoBlock>
+  );
+}
+
+export function InputOtpDemo() {
+  const [v, setV] = useState('');
+  return (
+    <DemoBlock>
+      <InputOTP length={6} value={v} onChange={setV} />
+    </DemoBlock>
+  );
+}
+
+export function NativeSelectDemo() {
+  return (
+    <DemoBlock>
+      <NativeSelect
+        label="Region"
+        defaultValue="us"
+        options={[
+          { value: 'us', label: 'United States' },
+          { value: 'eu', label: 'Europe' },
+        ]}
+      />
+    </DemoBlock>
+  );
+}
+
+export function ToggleGroupDemo() {
+  const [v, setV] = useState<string[]>(['bold']);
+  return (
+    <DemoBlock>
+      <ToggleGroup
+        type="multiple"
+        value={v}
+        onChange={(next) => setV(Array.isArray(next) ? next : [next])}
+        items={[
+          { id: 'bold', label: 'Bold' },
+          { id: 'italic', label: 'Italic' },
+          { id: 'underline', label: 'Underline' },
+        ]}
+      />
+    </DemoBlock>
+  );
+}
+
+export function DropdownMenuDemo() {
+  return (
+    <DemoBlock>
+      <DropdownMenu
+        trigger={<Button variant="ghost">Actions ▾</Button>}
+        items={[
+          { id: 'edit', label: 'Edit', onSelect: () => undefined },
+          { id: 'dup', label: 'Duplicate', onSelect: () => undefined },
+          { id: 'sep', label: '', separator: true },
+          { id: 'del', label: 'Delete', destructive: true, onSelect: () => undefined },
+        ]}
+      />
+    </DemoBlock>
+  );
+}
+
+export function ContextMenuDemo() {
+  return (
+    <DemoBlock>
+      <ContextMenu
+        items={[
+          { id: 'copy', label: 'Copy', onSelect: () => undefined },
+          { id: 'paste', label: 'Paste', onSelect: () => undefined },
+        ]}
+      >
+        <Paper seed="ctx" style={{ padding: 24, textAlign: 'center' }}>Right-click here</Paper>
+      </ContextMenu>
+    </DemoBlock>
+  );
+}
+
+export function CommandDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <DemoBlock>
+      <Button onClick={() => setOpen(true)}>Open command palette</Button>
+      <Command
+        open={open}
+        onClose={() => setOpen(false)}
+        items={[
+          { id: 'home', label: 'Go to Introduction', hint: 'Nav', keywords: ['docs'] },
+          { id: 'tokens', label: 'Open Tokens page', hint: 'Nav', keywords: ['theme'] },
+          { id: 'playground', label: 'Open Playground', hint: 'QA' },
+        ]}
+      />
+    </DemoBlock>
+  );
+}
+
+export function HoverCardDemo() {
+  return (
+    <DemoBlock>
+      <HoverCard content={<p style={{ margin: 0 }}>Sketchpad UI · hand-drawn React components with accessible defaults.</p>}>
+        <Button variant="link">@sketchpad-ui</Button>
+      </HoverCard>
+    </DemoBlock>
+  );
+}
+
+export function AspectRatioDemo() {
+  return (
+    <DemoBlock>
+      <AspectRatio ratio={16 / 9}>
+        <span style={{ color: 'var(--sk-colors-pencil)' }}>16:9 frame</span>
+      </AspectRatio>
+    </DemoBlock>
+  );
+}
+
+export function ItemDemo() {
+  return (
+    <DemoBlock>
+      <Item
+        title="SketchBorder"
+        description="SVG path engine wrapper"
+        media={<Avatar placeholder pixelSize={36} seed="item-av" />}
+        action={<Button size="sm" variant="ghost">Open</Button>}
+      />
+    </DemoBlock>
+  );
+}
+
 export const componentDemos: Record<string, React.ComponentType> = {
   accordion: AccordionDemo,
   alert: AlertDemo,
+  'aspect-ratio': AspectRatioDemo,
   attachment: AttachmentDemo,
   bubble: BubbleDemo,
   button: ButtonDemo,
   badge: BadgeDemo,
+  'button-group': ButtonGroupDemo,
   avatar: AvatarDemo,
   card: CardDemo,
   collapsible: CollapsibleDemo,
+  command: CommandDemo,
+  'context-menu': ContextMenuDemo,
+  'dropdown-menu': DropdownMenuDemo,
   field: FieldDemo,
+  'hover-card': HoverCardDemo,
   input: InputDemo,
+  'input-group': InputGroupDemo,
+  'input-otp': InputOtpDemo,
+  item: ItemDemo,
   kbd: KbdDemo,
   label: LabelDemo,
   marker: MarkerDemo,
   message: MessageDemo,
   'message-scroller': MessageScrollerDemo,
+  'native-select': NativeSelectDemo,
   textarea: TextareaDemo,
   select: SelectDemo,
   checkbox: CheckboxDemo,
@@ -472,6 +646,7 @@ export const componentDemos: Record<string, React.ComponentType> = {
   switch: SwitchDemo,
   slider: SliderDemo,
   spinner: SpinnerDemo,
+  'toggle-group': ToggleGroupDemo,
   tabs: TabsDemo,
   breadcrumb: BreadcrumbDemo,
   pagination: PaginationDemo,

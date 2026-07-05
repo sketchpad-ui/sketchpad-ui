@@ -170,3 +170,29 @@ export function WindowMockup(props: { children: ReactNode; width?: number; heigh
 }
 
 export const Frame = BrowserMockup;
+
+export function AspectRatio({
+  ratio = 16 / 9,
+  children,
+  seed = 'aspect-ratio',
+  className,
+}: {
+  ratio?: number;
+  children: ReactNode;
+  seed?: string | number;
+  className?: string;
+}) {
+  return (
+    <div className={cn(styles.aspectRatio, className)} style={{ paddingTop: `${100 / ratio}%` }}>
+      <SketchBorder
+        variant="rounded"
+        seed={seed}
+        fill="paperAlt"
+        className={styles.aspectRatioInner}
+        roughness={tokens.roughness.subtle}
+      >
+        {children}
+      </SketchBorder>
+    </div>
+  );
+}

@@ -100,3 +100,36 @@
   color: var(--sk-colors-inkSoft, #3a3834);
   margin: 0;
 }
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+}
+
+.itemMedia {
+  flex-shrink: 0;
+}
+
+.itemBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.itemTitle {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--sk-colors-ink);
+}
+
+.itemDescription {
+  margin: 2px 0 0;
+  font-size: 0.8rem;
+  color: var(--sk-colors-inkSoft);
+}
+
+.itemAction {
+  flex-shrink: 0;
+}

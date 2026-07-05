@@ -20,7 +20,10 @@ export {
 
 export { Button, IconButton, Badge, Avatar } from './components/core/Button.js';
 export type { ButtonProps, BadgeProps } from './components/core/Button.js';
-export { Tooltip, Popover } from './components/core/Tooltip.js';
+export { Tooltip, Popover, HoverCard } from './components/core/Tooltip.js';
+
+export { ButtonGroup } from './components/core/ButtonGroup.js';
+export type { ButtonGroupItem } from './components/core/ButtonGroup.js';
 
 export { Alert, Spinner } from './components/feedback/Feedback.js';
 export type { AlertProps, SpinnerProps } from './components/feedback/Feedback.js';
@@ -52,6 +55,14 @@ export {
 } from './components/forms/Forms.js';
 export type { TextInputProps, SelectProps, SelectOption } from './components/forms/Forms.js';
 
+export { InputGroup, InputOTP, NativeSelect, ToggleGroup } from './components/forms/InputExtras.js';
+
+export { DropdownMenu, ContextMenu } from './components/menus/Menus.js';
+export type { MenuItem } from './components/menus/Menus.js';
+
+export { Command, CommandShortcut } from './components/command/Command.js';
+export type { CommandItem } from './components/command/Command.js';
+
 /** Alias for Toggle */
 export { Toggle as Switch } from './components/forms/Forms.js';
 
@@ -75,6 +86,7 @@ export {
   PhoneMockup,
   WindowMockup,
   Frame,
+  AspectRatio,
 } from './components/layout/Layout.js';
 
 export {
@@ -97,6 +109,7 @@ export {
   ProgressBar,
   SkeletonLoader,
   EmptyState,
+  Item,
 } from './components/data/Data.js';
 export type { Column } from './components/data/Data.js';
 

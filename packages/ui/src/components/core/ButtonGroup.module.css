@@ -1,0 +1,34 @@
+.group {
+  display: inline-flex;
+  padding: 3px;
+  gap: 2px;
+}
+
+.btn {
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--sk-colors-inkSoft);
+  padding: 8px 14px;
+  cursor: pointer;
+  min-height: 36px;
+  border-radius: 2px;
+  transition: color 120ms ease;
+}
+
+.btn:hover {
+  color: var(--sk-colors-ink);
+}
+
+.btnActive {
+  color: var(--sk-colors-ink);
+  background: color-mix(in srgb, var(--sk-colors-accentYellow) 55%, transparent);
+  border-radius: 4px;
+}
+
+.btn:disabled {
+  color: var(--sk-colors-disabled);
+  cursor: not-allowed;
+}

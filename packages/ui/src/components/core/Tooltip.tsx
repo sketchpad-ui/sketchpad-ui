@@ -131,3 +131,48 @@ function PopoverArrow({ seed }: { seed: string | number }) {
     </svg>
   );
 }
+
+export function HoverCard({
+  content,
+  children,
+  seed = 'hover-card',
+  width = 280,
+}: {
+  content: ReactNode;
+  children: ReactNode;
+  seed?: string | number;
+  width?: number;
+}) {
+  const [visible, setVisible] = useState(false);
+  const id = useId();
+
+  return (
+    <span
+      style={{ position: 'relative', display: 'inline-block' }}
+      onMouseEnter={() => setVisible(true)}
+      onMouseLeave={() => setVisible(false)}
+      onFocus={() => setVisible(true)}
+      onBlur={() => setVisible(false)}
+    >
+      <span aria-describedby={visible ? id : undefined}>{children}</span>
+      {visible && (
+        <div
+          id={id}
+          role="tooltip"
+          style={{
+            position: 'absolute',
+            bottom: 'calc(100% + 10px)',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 50,
+            width,
+          }}
+        >
+          <SketchBorder variant="rounded" seed={seed} fill="paper" roughness={tokens.roughness.subtle}>
+            <div style={{ padding: 12, fontSize: '0.875rem' }}>{content}</div>
+          </SketchBorder>
+        </div>
+      )}
+    </span>
+  );
+}

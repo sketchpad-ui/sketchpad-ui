@@ -1,0 +1,76 @@
+.inputGroup {
+  display: flex;
+  align-items: stretch;
+}
+
+.inputGroupAddon {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 0.875rem;
+  color: var(--sk-colors-inkSoft);
+  white-space: nowrap;
+}
+
+.inputGroupField {
+  flex: 1;
+  min-width: 0;
+}
+
+.otpRow {
+  display: flex;
+  gap: 8px;
+}
+
+.otpCell {
+  width: 44px;
+  height: 44px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  border: none;
+  background: transparent;
+  color: var(--sk-colors-ink);
+  outline: none;
+}
+
+.otpCellWrap {
+  width: 44px;
+  height: 44px;
+}
+
+.nativeSelect {
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--sk-colors-ink);
+  outline: none;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.toggleGroup {
+  display: inline-flex;
+  padding: 3px;
+  gap: 2px;
+}
+
+.toggleGroupBtn {
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.875rem;
+  color: var(--sk-colors-inkSoft);
+  padding: 8px 14px;
+  cursor: pointer;
+  min-height: 36px;
+}
+
+.toggleGroupBtnActive {
+  color: var(--sk-colors-ink);
+  background: color-mix(in srgb, var(--sk-colors-accentYellow) 55%, transparent);
+  border-radius: 4px;
+}

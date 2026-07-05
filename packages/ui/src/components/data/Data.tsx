@@ -153,6 +153,31 @@ export function SkeletonLoader({
   );
 }
 
+export function Item({
+  title,
+  description,
+  media,
+  action,
+  seed = 'item',
+}: {
+  title: string;
+  description?: string;
+  media?: ReactNode;
+  action?: ReactNode;
+  seed?: string | number;
+}) {
+  return (
+    <SketchBorder variant="rounded" seed={seed} fill="paper" className={styles.item}>
+      {media && <div className={styles.itemMedia}>{media}</div>}
+      <div className={styles.itemBody}>
+        <p className={styles.itemTitle}>{title}</p>
+        {description && <p className={styles.itemDescription}>{description}</p>}
+      </div>
+      {action && <div className={styles.itemAction}>{action}</div>}
+    </SketchBorder>
+  );
+}
+
 export function EmptyState({
   title,
   description,

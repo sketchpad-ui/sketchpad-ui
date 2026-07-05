@@ -1,0 +1,61 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: var(--sk-colors-backdrop, rgba(0, 0, 0, 0.45));
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 15vh 16px 16px;
+}
+
+.dialog {
+  width: min(520px, 100%);
+}
+
+.input {
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--sk-colors-ink);
+  outline: none;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 4px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 2px;
+  font-size: 0.875rem;
+  color: var(--sk-colors-ink);
+  cursor: pointer;
+}
+
+.item:hover,
+.itemFocused {
+  background: color-mix(in srgb, var(--sk-colors-accentYellow) 55%, transparent);
+}
+
+.itemHint {
+  font-size: 0.75rem;
+  color: var(--sk-colors-pencil);
+}
+
+.empty {
+  padding: 16px 12px;
+  font-size: 0.85rem;
+  color: var(--sk-colors-pencil);
+  text-align: center;
+}
