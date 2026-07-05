@@ -24,6 +24,8 @@ export interface SketchBorderProps extends SketchComponentProps {
   width?: number;
   height?: number;
   radius?: number;
+  /** Ink opacity for the border stroke (0–1). Default 1. */
+  strokeOpacity?: number;
 }
 
 export interface PolymorphicProps<T extends ElementType = 'div'> {

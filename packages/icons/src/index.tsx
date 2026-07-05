@@ -1,7 +1,7 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { tokens } from '@sketchpad/tokens';
+import { tokens, colorVars } from '@sketchpad/tokens';
 import { generateLinePath, generateOvalPath, resolveSeed } from '@sketchpad/sketch-core';
 
 export interface IconProps {
@@ -45,8 +45,8 @@ export function IconClose({ size = 24, seed = 'icon-close' }: IconProps) {
   });
   return (
     <IconSvg size={size}>
-      <path d={path.fillPath} fill={tokens.colors.ink} />
-      <path d={path2.fillPath} fill={tokens.colors.ink} />
+      <path d={path.fillPath} fill={colorVars.ink} />
+      <path d={path2.fillPath} fill={colorVars.ink} />
     </IconSvg>
   );
 }
@@ -59,7 +59,7 @@ export function IconCheck({ size = 24, seed = 'icon-check' }: IconProps) {
   });
   return (
     <IconSvg size={size}>
-      <path d={path.fillPath} fill={tokens.colors.ink} />
+      <path d={path.fillPath} fill={colorVars.ink} />
     </IconSvg>
   );
 }
@@ -77,8 +77,8 @@ export function IconSearch({ size = 24, seed = 'icon-search' }: IconProps) {
   });
   return (
     <IconSvg size={size}>
-      <path d={circle.fillPath} fill="none" stroke={tokens.colors.ink} strokeWidth={1.5} />
-      <path d={handle.fillPath} fill={tokens.colors.ink} />
+      <path d={circle.fillPath} fill="none" stroke={colorVars.ink} strokeWidth={1.5} />
+      <path d={handle.fillPath} fill={colorVars.ink} />
     </IconSvg>
   );
 }
@@ -92,7 +92,7 @@ export function IconMenu({ size = 24, seed = 'icon-menu' }: IconProps) {
           strokeWidth: tokens.stroke.medium,
           seed: resolveSeed(`${seed}-${i}`, `menu-${i}`),
         });
-        return <path key={i} d={line.fillPath} fill={tokens.colors.ink} />;
+        return <path key={i} d={line.fillPath} fill={colorVars.ink} />;
       })}
     </IconSvg>
   );
@@ -107,9 +107,9 @@ export function IconAlert({ size = 24, seed = 'icon-alert' }: IconProps) {
   return (
     <IconSvg size={size}>
       <g transform="translate(2, 2)">
-        <path d={circle.fillPath} fill="none" stroke={tokens.colors.accentRed} strokeWidth={1.5} />
+        <path d={circle.fillPath} fill="none" stroke={colorVars.accentRed} strokeWidth={1.5} />
       </g>
-      <text x={size / 2} y={size / 2 + 4} textAnchor="middle" fontSize={14} fill={tokens.colors.accentRed}>
+      <text x={size / 2} y={size / 2 + 4} textAnchor="middle" fontSize={14} fill={colorVars.accentRed}>
         !
       </text>
     </IconSvg>

@@ -76,8 +76,7 @@
 
 .option:hover,
 .optionFocused {
-  background: var(--sk-colors-accentYellow, #f6d96b);
-  opacity: 0.4;
+  background: color-mix(in srgb, var(--sk-colors-accentYellow) 55%, transparent);
 }
 
 .checkbox {

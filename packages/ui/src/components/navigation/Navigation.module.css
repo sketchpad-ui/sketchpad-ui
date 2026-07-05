@@ -26,8 +26,7 @@
 .highlight {
   position: absolute;
   inset: 0;
-  background: var(--sk-colors-accentYellow, #f6d96b);
-  opacity: 0.35;
+  background: color-mix(in srgb, var(--sk-colors-accentYellow) 55%, transparent);
   z-index: -1;
   transform: rotate(-0.5deg);
 }

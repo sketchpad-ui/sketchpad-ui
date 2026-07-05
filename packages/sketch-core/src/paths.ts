@@ -28,7 +28,7 @@ function cacheKey(
   args: number[],
   opts: SketchPathOptions,
 ): string {
-  return [shape, ...args, opts.seed, opts.roughness, opts.strokeWidth, opts.overshoot ?? 0.04].join(
+  return [shape, ...args, opts.seed, opts.roughness, opts.strokeWidth, opts.overshoot ?? 0.018].join(
     ':',
   );
 }
@@ -99,11 +99,10 @@ function buildRectPath(
   opts: SketchPathOptions,
 ): SketchPathResult {
   const rand = createSeededRandom(opts.seed);
-  const overshoot = opts.overshoot ?? 0.04;
-  const maxOffset = opts.roughness * 1.2;
+  const maxOffset = opts.roughness * 0.65;
 
   const corners = roundedRectCorners(width, height, radius);
-  const centerPoints = buildWobblyLoop(corners, rand, maxOffset, overshoot);
+  const centerPoints = buildWobblyLoop(corners, rand, maxOffset, false);
   return pathsFromCenterline(centerPoints, opts, rand, true);
 }
 
@@ -141,13 +140,12 @@ function roundedRectCorners(w: number, h: number, r: number): Point[] {
 
 function buildOvalPath(width: number, height: number, opts: SketchPathOptions): SketchPathResult {
   const rand = createSeededRandom(opts.seed);
-  const overshoot = opts.overshoot ?? 0.04;
-  const maxOffset = opts.roughness * 1.2;
+  const maxOffset = opts.roughness * 0.65;
   const cx = width / 2;
   const cy = height / 2;
   const rx = width / 2;
   const ry = height / 2;
-  const segments = Math.max(8, Math.round(opts.roughness * 6));
+  const segments = Math.max(8, Math.round(6 + opts.roughness * 3));
 
   const corners: Point[] = [];
   for (let i = 0; i < segments; i++) {
@@ -158,7 +156,7 @@ function buildOvalPath(width: number, height: number, opts: SketchPathOptions): 
     });
   }
 
-  const centerPoints = buildWobblyLoop(corners, rand, maxOffset, overshoot * 0.5);
+  const centerPoints = buildWobblyLoop(corners, rand, maxOffset, false);
   return pathsFromCenterline(centerPoints, opts, rand, true);
 }
 
@@ -170,8 +168,8 @@ function buildLinePath(
   opts: SketchPathOptions,
 ): SketchPathResult {
   const rand = createSeededRandom(opts.seed);
-  const maxOffset = opts.roughness * 1.5;
-  const segmentCount = Math.max(2, Math.min(4, Math.round(opts.roughness * 2)));
+  const maxOffset = opts.roughness * 0.85;
+  const segmentCount = Math.max(2, Math.min(3, Math.round(1 + opts.roughness * 1.5)));
 
   const dx = x2 - x1;
   const dy = y2 - y1;
@@ -199,7 +197,7 @@ function buildWobblyLoop(
   corners: Point[],
   rand: () => number,
   maxOffset: number,
-  overshoot: number,
+  allowOvershoot: boolean,
 ): Point[] {
   const n = corners.length;
   const result: Point[] = [];
@@ -231,12 +229,18 @@ function buildWobblyLoop(
       }
 
       if (s === segmentCount) {
-        const overshootAmt = overshoot * (0.5 + rand() * 0.5) * edgeLen;
-        px += (edgeDx / edgeLen) * overshootAmt;
-        py += (edgeDy / edgeLen) * overshootAmt;
-        const cornerJitter = maxOffset * 0.3 * (rand() * 2 - 1);
-        px += -edgeDy / edgeLen * cornerJitter + (next.y - curr.y) * 0.02 * (rand() - 0.5);
-        py += edgeDx / edgeLen * cornerJitter + -(next.x - curr.x) * 0.02 * (rand() - 0.5);
+        // Land exactly on the corner — no tangent overshoot (prevents border gaps).
+        px = next.x;
+        py = next.y;
+        if (allowOvershoot) {
+          const overshoot = 0.018;
+          const overshootAmt = overshoot * (0.35 + rand() * 0.35) * edgeLen;
+          px += (edgeDx / edgeLen) * overshootAmt;
+          py += (edgeDy / edgeLen) * overshootAmt;
+        }
+        const cornerJitter = maxOffset * 0.05 * (rand() * 2 - 1);
+        px += nx * cornerJitter;
+        py += ny * cornerJitter;
         void prev;
       }
 
@@ -257,8 +261,8 @@ function quadraticPathThroughPoints(points: Point[], rand: () => number): string
   for (let i = 1; i < points.length; i++) {
     const prev = points[i - 1]!;
     const curr = points[i]!;
-    const cpx = (prev.x + curr.x) / 2 + (rand() * 2 - 1) * 0.8;
-    const cpy = (prev.y + curr.y) / 2 + (rand() * 2 - 1) * 0.8;
+    const cpx = (prev.x + curr.x) / 2 + (rand() * 2 - 1) * 0.35;
+    const cpy = (prev.y + curr.y) / 2 + (rand() * 2 - 1) * 0.35;
     d += ` Q ${cpx.toFixed(2)} ${cpy.toFixed(2)} ${curr.x.toFixed(2)} ${curr.y.toFixed(2)}`;
   }
   return d;
@@ -283,7 +287,7 @@ function ribbonFromCenterline(
   rand: () => number,
   closed: boolean,
 ): string {
-  const pressureVariance = opts.pressureVariance ?? 0.3;
+  const pressureVariance = opts.pressureVariance ?? 0.16;
   const baseHalf = opts.strokeWidth / 2;
   const outer: Point[] = [];
   const inner: Point[] = [];
@@ -311,8 +315,8 @@ function ribbonFromCenterline(
     const nx = -ty / len;
     const ny = tx / len;
 
-    const cornerFactor = i === 0 || i === n - 1 ? 1 + pressureVariance * 0.5 : 1;
-    const pressure = baseHalf * cornerFactor * (1 + (rand() * 2 - 1) * pressureVariance * 0.3);
+    const cornerFactor = i === 0 || i === n - 1 ? 1 + pressureVariance * 0.35 : 1;
+    const pressure = baseHalf * cornerFactor * (1 + (rand() * 2 - 1) * pressureVariance * 0.22);
 
     outer.push({ x: curr.x + nx * pressure, y: curr.y + ny * pressure });
     inner.push({ x: curr.x - nx * pressure, y: curr.y - ny * pressure });
@@ -337,7 +341,7 @@ export function generateTornRectPath(
   const rand = createSeededRandom(opts.seed + 99);
   const w = Math.max(width, 1);
   const h = Math.max(height, 1);
-  const maxOffset = opts.roughness * 2;
+  const maxOffset = opts.roughness * 1.1;
 
   const corners: Point[] = [
     { x: rand() * maxOffset, y: rand() * maxOffset },
@@ -346,8 +350,53 @@ export function generateTornRectPath(
     { x: rand() * maxOffset * 0.5, y: h - rand() * maxOffset * 0.7 },
   ];
 
-  const centerPoints = buildWobblyLoop(corners, rand, maxOffset * 0.5, opts.overshoot ?? 0.04);
+  const centerPoints = buildWobblyLoop(corners, rand, maxOffset * 0.5, true);
   return pathsFromCenterline(centerPoints, opts, rand, true);
+}
+
+export function generateInteriorPath(
+  width: number,
+  height: number,
+  radius: number,
+  inset: number,
+  variant: 'rect' | 'rounded' | 'oval' = 'rounded',
+): string {
+  const w = Math.max(width, 1);
+  const h = Math.max(height, 1);
+  const pad = Math.max(0, inset);
+
+  if (variant === 'oval') {
+    const cx = w / 2;
+    const cy = h / 2;
+    const rx = Math.max(0, w / 2 - pad);
+    const ry = Math.max(0, h / 2 - pad);
+    if (rx <= 0 || ry <= 0) return '';
+    return `M ${cx - rx} ${cy} A ${rx} ${ry} 0 1 1 ${cx + rx} ${cy} A ${rx} ${ry} 0 1 1 ${cx - rx} ${cy} Z`;
+  }
+
+  const x = pad;
+  const y = pad;
+  const iw = Math.max(0, w - pad * 2);
+  const ih = Math.max(0, h - pad * 2);
+  const r = variant === 'rect' ? 0 : Math.min(radius, iw / 2, ih / 2);
+
+  if (iw <= 0 || ih <= 0) return '';
+  if (r <= 0) {
+    return `M ${x} ${y} H ${x + iw} V ${y + ih} H ${x} Z`;
+  }
+
+  return [
+    `M ${x + r} ${y}`,
+    `H ${x + iw - r}`,
+    `Q ${x + iw} ${y} ${x + iw} ${y + r}`,
+    `V ${y + ih - r}`,
+    `Q ${x + iw} ${y + ih} ${x + iw - r} ${y + ih}`,
+    `H ${x + r}`,
+    `Q ${x} ${y + ih} ${x} ${y + ih - r}`,
+    `V ${y + r}`,
+    `Q ${x} ${y} ${x + r} ${y}`,
+    'Z',
+  ].join(' ');
 }
 
 export function generateUnderlinePath(

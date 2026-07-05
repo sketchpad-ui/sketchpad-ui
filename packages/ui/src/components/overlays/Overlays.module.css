@@ -1,7 +1,7 @@
 .backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(29, 29, 27, 0.4);
+  background: var(--sk-colors-backdrop, rgba(29, 29, 27, 0.45));
   z-index: 100;
   display: flex;
   align-items: center;

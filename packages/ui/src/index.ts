@@ -77,3 +77,8 @@ export {
 export type { Column } from './components/data/Data.js';
 
 export { cn, deriveSeed, useReducedMotion, useIsMobile } from './utils.js';
+
+export { ThemeProvider } from './theme/ThemeProvider.js';
+export { useTheme } from './theme/useTheme.js';
+export { ThemeToggle } from './theme/ThemeToggle.js';
+export type { ThemeSetting, ResolvedTheme } from './theme/types.js';

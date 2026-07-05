@@ -10,7 +10,7 @@ import {
   type ReactNode,
   type TextareaHTMLAttributes,
 } from 'react';
-import { tokens } from '@sketchpad/tokens';
+import { tokens, colorVars } from '@sketchpad/tokens';
 import { generateOvalPath, resolveSeed } from '@sketchpad/sketch-core';
 import { SketchBorder } from '../../primitives/SketchBorder.js';
 import type { SketchComponentProps } from '../../types.js';
@@ -337,7 +337,7 @@ export function RadioGroup({
               <span className={styles.checkboxBox}>
                 {selected && (
                   <svg width={10} height={10} aria-hidden="true">
-                    <path d={dotPath.fillPath} fill={tokens.colors.ink} />
+                    <path d={dotPath.fillPath} fill={colorVars.ink} />
                   </svg>
                 )}
               </span>
@@ -431,7 +431,7 @@ export function Slider({
             style={{
               height: 6,
               width: `${pct}%`,
-              background: tokens.colors.accentYellow,
+              background: colorVars.accentYellow,
               opacity: 0.6,
               borderRadius: 2,
             }}

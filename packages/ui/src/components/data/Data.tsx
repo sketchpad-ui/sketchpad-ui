@@ -1,7 +1,7 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { tokens } from '@sketchpad/tokens';
+import { tokens, colorVars } from '@sketchpad/tokens';
 import { SketchBorder } from '../../primitives/SketchBorder.js';
 import { HandwrittenNote, ImagePlaceholder, ScribbleLine, SketchArrow } from '../../primitives/decorative.js';
 import { RoughLine } from '../../primitives/decorative.js';
@@ -80,9 +80,9 @@ export function Timeline({
           )}
           <strong>{event.title}</strong>
           {event.date && (
-            <div style={{ fontSize: '0.8rem', color: tokens.colors.pencil }}>{event.date}</div>
+            <div style={{ fontSize: '0.8rem', color: colorVars.pencil }}>{event.date}</div>
           )}
-          {event.description && <p style={{ margin: '4px 0 0', color: tokens.colors.inkSoft }}>{event.description}</p>}
+          {event.description && <p style={{ margin: '4px 0 0', color: colorVars.inkSoft }}>{event.description}</p>}
         </div>
       ))}
     </div>

@@ -9,12 +9,13 @@ import {
   type ElementType,
   type ReactNode,
 } from 'react';
-import { tokens, accentColorMap } from '@sketchpad/tokens';
+import { tokens, accentColorVarMap, colorVars, type AccentColor } from '@sketchpad/tokens';
 import {
   generateRectPath,
   generateOvalPath,
   generateTornRectPath,
   generateUnderlinePath,
+  generateInteriorPath,
   resolveSeed,
   type SketchPathResult,
 } from '@sketchpad/sketch-core';
@@ -25,22 +26,23 @@ import {
   deriveSeed,
   getEffectiveRoughness,
   getEffectiveStroke,
+  scaleRoughnessForSize,
 } from '../utils.js';
 import styles from './SketchBorder.module.css';
 
-const DEFAULT_ROUGHNESS = tokens.roughness.medium;
-const DEFAULT_STROKE = tokens.stroke.medium;
+const DEFAULT_ROUGHNESS = tokens.roughness.low;
+const DEFAULT_STROKE = tokens.stroke.thin;
 
-function getFillColor(fill: SketchFill, accent?: keyof typeof accentColorMap): string | 'none' {
+function getFillColor(fill: SketchFill, accent?: AccentColor): string | 'none' {
   switch (fill) {
     case 'paper':
-      return tokens.colors.paper;
+      return colorVars.paper;
     case 'solid':
-      return tokens.colors.paperBright;
+      return colorVars.paperBright;
     case 'paperBright':
-      return tokens.colors.paperBright;
+      return colorVars.paperBright;
     case 'accent':
-      return accent ? accentColorMap[accent] : tokens.colors.accentYellow;
+      return accent ? accentColorVarMap[accent] : colorVars.accentYellow;
     default:
       return 'none';
   }
@@ -71,6 +73,12 @@ function generatePathForVariant(
   }
 }
 
+function interiorVariant(variant: NonNullable<SketchBorderProps['variant']>): 'rect' | 'rounded' | 'oval' {
+  if (variant === 'oval') return 'oval';
+  if (variant === 'rect') return 'rect';
+  return 'rounded';
+}
+
 export function SketchBorder({
   as,
   variant = 'rounded',
@@ -86,6 +94,7 @@ export function SketchBorder({
   className,
   children,
   style,
+  strokeOpacity = 1,
 }: SketchBorderProps) {
   const Component = (as ?? 'div') as ElementType;
   const containerRef = useRef<HTMLDivElement>(null);
@@ -125,7 +134,11 @@ export function SketchBorder({
     return () => ro.disconnect();
   }, [widthProp, heightProp, measure, debouncedMeasure]);
 
-  const effectiveRoughness = getEffectiveRoughness(roughness, isMobile);
+  const effectiveRoughness = scaleRoughnessForSize(
+    getEffectiveRoughness(roughness, isMobile),
+    size.width,
+    size.height,
+  );
   const effectiveStroke = getEffectiveStroke(strokeWidth, isMobile);
   const seedStr = deriveSeed(seed, 'sketch-border', size.width, size.height);
   const seedNum = resolveSeed(seedStr, seedStr);
@@ -163,6 +176,27 @@ export function SketchBorder({
   ]);
 
   const fillColor = getFillColor(fill, accent);
+  const interiorInset = Math.max(effectiveStroke * 0.6, 0.5);
+
+  const interiorPath = useMemo(() => {
+    if (fillColor === 'none' || variant === 'underline') return null;
+    return generateInteriorPath(
+      size.width,
+      size.height,
+      radius,
+      interiorInset,
+      interiorVariant(variant),
+    );
+  }, [fillColor, variant, size.width, size.height, radius, interiorInset]);
+
+  const inkStroke = {
+    fill: 'none' as const,
+    stroke: colorVars.ink,
+    strokeWidth: effectiveStroke,
+    strokeLinecap: 'round' as const,
+    strokeLinejoin: 'round' as const,
+    vectorEffect: 'nonScalingStroke' as const,
+  };
 
   return (
     <Component
@@ -180,21 +214,17 @@ export function SketchBorder({
         preserveAspectRatio="none"
         aria-hidden="true"
       >
-        {fillColor !== 'none' && (
-          <path d={paths.primary.fillPath} fill={fillColor} stroke="none" />
-        )}
+        {interiorPath && <path d={interiorPath} fill={fillColor} stroke="none" />}
         <path
-          d={paths.primary.fillPath}
-          fill={tokens.colors.ink}
-          stroke="none"
-          opacity={fillColor !== 'none' ? 0.85 : 1}
+          d={paths.primary.centerPath}
+          {...inkStroke}
+          strokeOpacity={strokeOpacity}
         />
         {paths.secondary && (
           <path
-            d={paths.secondary.fillPath}
-            fill={tokens.colors.ink}
-            stroke="none"
-            opacity={0.35}
+            d={paths.secondary.centerPath}
+            {...inkStroke}
+            strokeOpacity={strokeOpacity * 0.35}
           />
         )}
       </svg>
@@ -221,8 +251,15 @@ export function SketchSvg({ width, height, path, fill = 'none', className, child
       className={className}
       aria-hidden="true"
     >
-      {fill !== 'none' && <path d={path.fillPath} fill={fill} stroke="none" />}
-      <path d={path.fillPath} fill={tokens.colors.ink} stroke="none" />
+      {fill !== 'none' && <path d={path.centerPath} fill={fill} stroke="none" />}
+      <path
+        d={path.centerPath}
+        fill="none"
+        stroke={colorVars.ink}
+        strokeWidth={tokens.stroke.thin}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
       {children}
     </svg>
   );

@@ -7,7 +7,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import { tokens } from '@sketchpad/tokens';
+import { tokens, colorVars } from '@sketchpad/tokens';
 import { SketchBorder } from '../../primitives/SketchBorder.js';
 import { Button } from '../core/Button.js';
 import { cn } from '../../utils.js';
@@ -129,7 +129,7 @@ export function AlertDialog({
 }) {
   return (
     <Modal open={open} onClose={() => {}} title={title}>
-      {description && <p style={{ margin: '0 0 20px', color: tokens.colors.inkSoft }}>{description}</p>}
+      {description && <p style={{ margin: '0 0 20px', color: colorVars.inkSoft }}>{description}</p>}
       <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end' }}>
         <Button variant="ghost" onClick={onClose}>
           {cancelLabel}

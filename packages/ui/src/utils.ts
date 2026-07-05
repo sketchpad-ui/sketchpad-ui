@@ -24,7 +24,18 @@ export function useIsMobile(): boolean {
 }
 
 export function getEffectiveRoughness(roughness: number, isMobile: boolean): number {
-  return isMobile ? roughness * 0.75 : roughness;
+  const base = isMobile ? roughness * 0.75 : roughness;
+  return base;
+}
+
+/** Large surfaces need less wobble to stay legible at production sizes. */
+export function scaleRoughnessForSize(roughness: number, width: number, height: number): number {
+  const perimeter = 2 * (width + height);
+  const area = width * height;
+  if (perimeter > 700 || area > 50000) return roughness * 0.5;
+  if (perimeter > 400 || area > 20000) return roughness * 0.68;
+  if (perimeter > 250 || area > 8000) return roughness * 0.82;
+  return roughness;
 }
 
 export function getEffectiveStroke(strokeWidth: number, isMobile: boolean): number {

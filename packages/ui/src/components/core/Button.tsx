@@ -1,7 +1,7 @@
 'use client';
 
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
-import { tokens, accentColorMap } from '@sketchpad/tokens';
+import { tokens, colorVars } from '@sketchpad/tokens';
 import { SketchBorder } from '../../primitives/SketchBorder.js';
 import type { SketchComponentProps } from '../../types.js';
 import { cn } from '../../utils.js';
@@ -94,7 +94,7 @@ export function Badge({
     variant === 'stamp'
       ? { transform: 'rotate(-2deg)' as const }
       : variant === 'marker'
-        ? { background: accentColorMap[accent], opacity: 0.5, padding: '4px 10px' }
+        ? { padding: '4px 10px' }
         : {};
 
   return (
@@ -109,7 +109,10 @@ export function Badge({
       className={className}
       style={{ ...stampStyle, ...style, display: 'inline-block' }}
     >
-      <span style={{ padding: '4px 12px', fontSize: '0.8rem', display: 'inline-block' }}>
+      <span
+        className={cn(variant === 'marker' && styles.badgeMarker)}
+        style={{ padding: '4px 12px', fontSize: '0.8rem', display: 'inline-block' }}
+      >
         {children}
       </span>
     </SketchBorder>
@@ -151,8 +154,8 @@ export function Avatar({
           <img src={src} alt={alt} width={pixelSize} height={pixelSize} style={{ objectFit: 'cover' }} />
         ) : (
           <svg width={pixelSize} height={pixelSize} aria-hidden="true">
-            <line x1={4} y1={4} x2={pixelSize - 4} y2={pixelSize - 4} stroke={tokens.colors.pencil} />
-            <line x1={pixelSize - 4} y1={4} x2={4} y2={pixelSize - 4} stroke={tokens.colors.pencil} />
+            <line x1={4} y1={4} x2={pixelSize - 4} y2={pixelSize - 4} stroke={colorVars.pencil} />
+            <line x1={pixelSize - 4} y1={4} x2={4} y2={pixelSize - 4} stroke={colorVars.pencil} />
           </svg>
         )}
       </div>

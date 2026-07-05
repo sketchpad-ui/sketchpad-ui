@@ -1,7 +1,7 @@
 'use client';
 
 import type { CSSProperties, ReactNode } from 'react';
-import { tokens } from '@sketchpad/tokens';
+import { tokens, colorVars } from '@sketchpad/tokens';
 import { SketchBorder } from '../../primitives/SketchBorder.js';
 import { FoldedCorner, PaperTape } from '../../primitives/decorative.js';
 import { RoughLine } from '../../primitives/decorative.js';
@@ -139,7 +139,7 @@ function DeviceFrame({
         <span className={styles.dot} />
         <span className={styles.dot} />
         {variant === 'browser' && (
-          <span style={{ marginLeft: 8, fontSize: '0.75rem', color: tokens.colors.pencil }}>
+          <span style={{ marginLeft: 8, fontSize: '0.75rem', color: colorVars.pencil }}>
             sketchpad.dev
           </span>
         )}

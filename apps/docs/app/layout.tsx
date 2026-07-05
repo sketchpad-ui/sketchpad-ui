@@ -1,38 +1,39 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
+import { Inter, Kalam } from 'next/font/google';
+import { getThemeInitScript } from '@sketchpad/tokens';
 import '@sketchpad/tokens/tokens.css';
 import 'sketchpad-ui/styles.css';
 import './globals.css';
+import { DocsProviders } from '../components/DocsProviders';
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-body' });
+const kalam = Kalam({ weight: '400', subsets: ['latin'], variable: '--font-annotation' });
 
 export const metadata: Metadata = {
-  title: 'Sketchpad UI',
-  description: 'Hand-sketched wireframe React component library',
+  title: {
+    default: 'Sketchpad UI',
+    template: '%s · Sketchpad UI',
+  },
+  description: 'Hand-sketched wireframe React components. Copy-friendly, accessible, fully documented.',
+  icons: {
+    icon: '/logo.png',
+    apple: '/logo.png',
+  },
+  openGraph: {
+    title: 'Sketchpad UI',
+    description: 'Hand-sketched wireframe React component library',
+    images: [{ url: '/logo.png', width: 1254, height: 1254, alt: 'Sketchpad UI logo' }],
+  },
 };
-
-const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/components/button', label: 'Button' },
-  { href: '/components/forms', label: 'Forms' },
-  { href: '/components/navigation', label: 'Navigation' },
-  { href: '/components/data', label: 'Data' },
-  { href: '/primitives', label: 'Primitives' },
-  { href: '/playground', label: 'Playground' },
-  { href: '/tokens', label: 'Tokens' },
-];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${kalam.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: getThemeInitScript() }} />
+      </head>
       <body>
-        <nav className="docsNav">
-          <strong>Sketchpad UI</strong>
-          {navLinks.map((link) => (
-            <Link key={link.href} href={link.href}>
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-        <main className="docsMain">{children}</main>
+        <DocsProviders>{children}</DocsProviders>
       </body>
     </html>
   );

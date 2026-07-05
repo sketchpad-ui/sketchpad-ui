@@ -75,8 +75,7 @@
 
 .progressFill {
   height: 100%;
-  background: var(--sk-colors-accentGreen, #a8d5ba);
-  opacity: 0.7;
+  background: var(--sk-colors-accentGreen, #dbdbdb);
   transition: width 180ms ease;
 }
 

@@ -1,0 +1,24 @@
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--sk-colors-inkSoft, #3a3834);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  border-radius: 4px;
+}
+
+.toggle:hover {
+  color: var(--sk-colors-ink, #1d1d1b);
+}
+
+.toggle:focus-visible {
+  outline: 2px solid var(--sk-colors-accentBlue, #a7c7e7);
+  outline-offset: 2px;
+}

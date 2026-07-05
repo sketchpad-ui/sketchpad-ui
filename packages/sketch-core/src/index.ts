@@ -6,6 +6,7 @@ export {
 } from './random.js';
 export {
   clearPathCache,
+  generateInteriorPath,
   generateLinePath,
   generateOvalPath,
   generateRectPath,

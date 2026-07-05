@@ -8,7 +8,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import { tokens } from '@sketchpad/tokens';
+import { tokens, colorVars } from '@sketchpad/tokens';
 import { generateRectPath, resolveSeed } from '@sketchpad/sketch-core';
 import { SketchBorder } from '../../primitives/SketchBorder.js';
 import type { SketchComponentProps } from '../../types.js';
@@ -127,7 +127,7 @@ function PopoverArrow({ seed }: { seed: string | number }) {
       style={{ position: 'absolute', top: -6, left: 16 }}
       aria-hidden="true"
     >
-      <path d={path.fillPath} fill={tokens.colors.paper} />
+      <path d={path.fillPath} fill={colorVars.paper} />
     </svg>
   );
 }

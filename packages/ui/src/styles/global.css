@@ -1,7 +1,7 @@
 :root {
   font-family: var(--sk-font-body, 'Inter', system-ui, sans-serif);
-  color: var(--sk-colors-ink, #1d1d1b);
-  background: var(--sk-colors-paper, #faf7ef);
+  color: var(--sk-colors-ink, #171717);
+  background: var(--sk-colors-paper, #fafafa);
 }
 
 *,

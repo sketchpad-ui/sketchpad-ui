@@ -10,7 +10,7 @@
   font-family: inherit;
   font-size: 0.95rem;
   font-weight: 500;
-  color: var(--sk-colors-ink, #1d1d1b);
+  color: var(--sk-colors-ink, #171717);
   cursor: pointer;
   transition: transform 120ms ease, opacity 120ms ease;
   min-height: 44px;
@@ -26,7 +26,7 @@
 }
 
 .button:focus-visible {
-  outline: 2px solid var(--sk-colors-ink, #1d1d1b);
+  outline: 2px solid var(--sk-colors-ink, #171717);
   outline-offset: 3px;
 }
 
@@ -72,4 +72,9 @@
 
 .fullWidth {
   width: 100%;
+}
+
+.badgeMarker {
+  color: var(--sk-colors-ink, #171717);
+  font-weight: 500;
 }

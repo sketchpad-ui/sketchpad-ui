@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { tokens } from '@sketchpad/tokens';
+import { tokens, colorVars, accentColorVarMap, type AccentColor } from '@sketchpad/tokens';
 import {
   generateLinePath,
   generateOvalPath,
@@ -28,7 +28,7 @@ function useLinePath(props: LineProps) {
   return useMemo(
     () =>
       generateLinePath(x1, y1, endX, y2, {
-        roughness: roughness ?? tokens.roughness.medium,
+        roughness: roughness ?? tokens.roughness.low,
         strokeWidth: strokeWidth ?? tokens.stroke.medium,
         seed: resolveSeed(seedStr, seedStr),
       }),
@@ -69,8 +69,8 @@ export function SketchArrow(
 
   return (
     <svg width={width} height={height} aria-hidden="true">
-      <path d={path.fillPath} fill={tokens.colors.ink} />
-      <path d={head} fill="none" stroke={tokens.colors.ink} strokeWidth={1.2} />
+      <path d={path.fillPath} fill={colorVars.ink} />
+      <path d={head} fill="none" stroke={colorVars.ink} strokeWidth={1.2} />
     </svg>
   );
 }
@@ -85,9 +85,8 @@ export function MarkerHighlight({
   accent = 'yellow',
   className,
   style,
-}: SketchComponentProps & { width?: number; height?: number }) {
-  const colorKey = `accent${accent.charAt(0).toUpperCase()}${accent.slice(1)}` as keyof typeof tokens.colors;
-  const color = tokens.colors[colorKey];
+}: SketchComponentProps & { width?: number; height?: number; accent?: AccentColor }) {
+  const color = accentColorVarMap[accent];
   return (
     <span
       className={className}
@@ -96,7 +95,7 @@ export function MarkerHighlight({
         width,
         height,
         background: color,
-        opacity: 0.55,
+        opacity: 0.85,
         borderRadius: 2,
         transform: 'rotate(-0.5deg)',
         ...style,
@@ -156,7 +155,7 @@ export function ScribbleLine(props: LineProps & { lines?: number }) {
 export function DoodleStar({ pixelSize = 24 }: { pixelSize?: number }) {
   return (
     <svg width={pixelSize} height={pixelSize} aria-hidden="true">
-      <text x={pixelSize / 2} y={pixelSize / 2 + 4} textAnchor="middle" fontSize={12} fill={tokens.colors.ink}>
+      <text x={pixelSize / 2} y={pixelSize / 2 + 4} textAnchor="middle" fontSize={12} fill={colorVars.ink}>
         ★
       </text>
     </svg>
@@ -171,9 +170,9 @@ export function PaperTape({ className, style }: SketchComponentProps) {
       style={{
         width: 48,
         height: 20,
-        background: 'rgba(246, 217, 107, 0.5)',
+        background: 'color-mix(in srgb, var(--sk-colors-accentYellow) 65%, transparent)',
         transform: 'rotate(-2deg)',
-        border: `1px solid ${tokens.colors.pencil}`,
+        border: `1px solid ${colorVars.pencil}`,
         opacity: 0.8,
         ...style,
       }}
@@ -186,8 +185,8 @@ export function FoldedCorner({ size = 24 }: { size?: number }) {
     <svg width={size} height={size} aria-hidden="true" style={{ position: 'absolute', top: 0, right: 0 }}>
       <path
         d={`M ${size} 0 L ${size} ${size} L 0 0 Z`}
-        fill={tokens.colors.paperAlt}
-        stroke={tokens.colors.pencil}
+        fill={colorVars.paperAlt}
+        stroke={colorVars.pencil}
         strokeWidth={0.8}
       />
     </svg>
@@ -202,11 +201,11 @@ export function CircleHighlight({
   seed?: string | number;
 }) {
   const path = generateOvalPath(pixelSize, pixelSize, {
-    roughness: tokens.roughness.medium,
+    roughness: tokens.roughness.low,
     strokeWidth: tokens.stroke.medium,
     seed: resolveSeed(seed, 'circle-hl'),
   });
-  return <SketchSvg width={pixelSize} height={pixelSize} path={path} fill={tokens.colors.accentYellow} />;
+  return <SketchSvg width={pixelSize} height={pixelSize} path={path} fill={colorVars.accentYellow} />;
 }
 
 export function RoughBox({
@@ -240,7 +239,7 @@ export function HandwrittenNote({ children, className, style }: SketchComponentP
       style={{
         fontFamily: tokens.font.annotation,
         fontSize: '0.95rem',
-        color: tokens.colors.inkSoft,
+        color: colorVars.inkSoft,
         margin: 0,
         ...style,
       }}
@@ -266,7 +265,7 @@ export function ImagePlaceholder({
   skeletonLines?: number;
 }) {
   const frame = generateRectPath(width, height, tokens.radii.sketchSm, {
-    roughness: tokens.roughness.medium,
+    roughness: tokens.roughness.low,
     strokeWidth: tokens.stroke.medium,
     seed: resolveSeed(seed, 'frame'),
   });
@@ -284,12 +283,12 @@ export function ImagePlaceholder({
   return (
     <figure className={className} style={{ margin: 0 }}>
       <svg width={width} height={height} aria-hidden="true">
-        <path d={frame.fillPath} fill={tokens.colors.paperAlt} />
-        <path d={frame.fillPath} fill={tokens.colors.ink} opacity={0.9} />
-        <path d={diag1.fillPath} fill={tokens.colors.pencil} opacity={0.5} />
-        <path d={diag2.fillPath} fill={tokens.colors.pencil} opacity={0.5} />
+        <path d={frame.fillPath} fill={colorVars.paperAlt} />
+        <path d={frame.fillPath} fill={colorVars.ink} opacity={0.9} />
+        <path d={diag1.fillPath} fill={colorVars.pencil} opacity={0.5} />
+        <path d={diag2.fillPath} fill={colorVars.pencil} opacity={0.5} />
         {showIcon && (
-          <text x={width - 20} y={20} fontSize={12} fill={tokens.colors.pencil}>
+          <text x={width - 20} y={20} fontSize={12} fill={colorVars.pencil}>
             img
           </text>
         )}

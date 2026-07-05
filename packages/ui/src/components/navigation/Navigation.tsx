@@ -1,7 +1,7 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { tokens } from '@sketchpad/tokens';
+import { tokens, colorVars } from '@sketchpad/tokens';
 import { SketchBorder } from '../../primitives/SketchBorder.js';
 import { SketchArrow } from '../../primitives/decorative.js';
 import { cn } from '../../utils.js';
@@ -185,7 +185,7 @@ export function Stepper({
           {i < steps.length - 1 && (
             <div className={styles.connector}>
               <svg width={40} height={2} aria-hidden="true">
-                <line x1={0} y1={1} x2={40} y2={1} stroke={tokens.colors.pencil} strokeDasharray="4 2" />
+                <line x1={0} y1={1} x2={40} y2={1} stroke={colorVars.pencil} strokeDasharray="4 2" />
               </svg>
             </div>
           )}
