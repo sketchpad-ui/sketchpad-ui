@@ -1,0 +1,122 @@
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  flex-wrap: wrap;
+}
+
+.navItem {
+  position: relative;
+  padding: 8px 14px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--sk-colors-ink, #1d1d1b);
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.navItem:hover,
+.navItemActive {
+  font-weight: 500;
+}
+
+.highlight {
+  position: absolute;
+  inset: 0;
+  background: var(--sk-colors-accentYellow, #f6d96b);
+  opacity: 0.35;
+  z-index: -1;
+  transform: rotate(-0.5deg);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  min-width: 200px;
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: none;
+}
+
+.tab {
+  padding: 10px 16px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  cursor: pointer;
+  min-height: 44px;
+  position: relative;
+}
+
+.tabActive {
+  font-weight: 600;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+}
+
+.breadcrumbLink {
+  color: var(--sk-colors-inkSoft, #3a3834);
+  text-decoration: none;
+}
+
+.breadcrumbLink:hover {
+  text-decoration: underline;
+}
+
+.pagination {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.pageBtn {
+  min-width: 36px;
+  min-height: 36px;
+  padding: 4px 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+}
+
+.stepCircle {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.connector {
+  width: 40px;
+  height: 2px;
+  margin-bottom: 20px;
+}

@@ -1,0 +1,39 @@
+:root {
+  font-family: var(--sk-font-body, 'Inter', system-ui, sans-serif);
+  color: var(--sk-colors-ink, #1d1d1b);
+  background: var(--sk-colors-paper, #faf7ef);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.sk-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .sk-hide-mobile {
+    display: none !important;
+  }
+}

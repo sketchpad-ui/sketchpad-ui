@@ -1,0 +1,149 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.label {
+  font-size: 0.875rem;
+  color: var(--sk-colors-inkSoft, #3a3834);
+}
+
+.inputWrap {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--sk-colors-ink, #1d1d1b);
+  outline: none;
+  min-height: 44px;
+}
+
+.input::placeholder {
+  color: var(--sk-colors-pencil, #8a867c);
+}
+
+.input:focus-visible {
+  outline: none;
+}
+
+.error {
+  font-size: 0.8rem;
+  color: var(--sk-colors-accentRed, #e99a8d);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.searchInput {
+  padding-left: 36px;
+}
+
+.selectList {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 40;
+  max-height: 200px;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
+  padding: 4px;
+}
+
+.option {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.option:hover,
+.optionFocused {
+  background: var(--sk-colors-accentYellow, #f6d96b);
+  opacity: 0.4;
+}
+
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.checkboxBox {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tick {
+  fill: none;
+  stroke: var(--sk-colors-ink, #1d1d1b);
+  stroke-width: 2;
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  transition: stroke-dashoffset 180ms ease;
+}
+
+.tickChecked {
+  stroke-dashoffset: 0;
+}
+
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.toggleTrack {
+  width: 44px;
+  height: 24px;
+  position: relative;
+}
+
+.toggleKnob {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 3px;
+  transition: left 160ms ease;
+}
+
+.slider {
+  width: 100%;
+  padding: 8px 0;
+}
+
+.sliderInput {
+  width: 100%;
+  accent-color: var(--sk-colors-ink, #1d1d1b);
+  min-height: 44px;
+}

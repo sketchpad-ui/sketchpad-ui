@@ -1,0 +1,69 @@
+:root {
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-annotation: 'Kalam', 'Caveat', cursive;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--sk-colors-paper, #faf7ef);
+  color: var(--sk-colors-ink, #1d1d1b);
+}
+
+a {
+  color: inherit;
+}
+
+.docsNav {
+  display: flex;
+  gap: 16px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--sk-colors-pencil, #8a867c);
+  flex-wrap: wrap;
+}
+
+.docsNav a {
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.docsNav a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.docsMain {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+.demoBox {
+  padding: 24px;
+  margin: 16px 0;
+}
+
+.code {
+  background: var(--sk-colors-paperAlt, #f7f1e3);
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  overflow-x: auto;
+}
+
+.matrix {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 16px;
+}
+
+.matrixCell {
+  padding: 8px;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--sk-colors-pencil);
+}

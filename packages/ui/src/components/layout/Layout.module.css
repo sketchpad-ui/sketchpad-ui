@@ -1,0 +1,50 @@
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+.paper {
+  position: relative;
+  padding: 24px;
+  background: var(--sk-colors-paper, #faf7ef);
+}
+
+.divider {
+  width: 100%;
+  margin: 16px 0;
+}
+
+.frame {
+  padding: 8px;
+}
+
+.frameBar {
+  display: flex;
+  gap: 6px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--sk-colors-pencil, #8a867c);
+  opacity: 0.5;
+}
+
+.frameContent {
+  padding: 16px;
+}
