@@ -1,0 +1,29 @@
+.resizable {
+  display: flex;
+  width: 100%;
+  min-height: 160px;
+}
+
+.resizablePanel {
+  min-width: 0;
+  overflow: auto;
+  padding: 12px;
+}
+
+.resizableHandle {
+  width: 10px;
+  flex-shrink: 0;
+  cursor: col-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sk-colors-pencil);
+  user-select: none;
+}
+
+.scrollArea {
+  position: relative;
+  overflow: auto;
+  max-height: var(--sk-scroll-max-height, 240px);
+  padding-right: 4px;
+}

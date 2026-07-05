@@ -44,3 +44,59 @@
   color: var(--sk-colors-pencil);
   margin: 0;
 }
+
+.heading {
+  margin: 0 0 8px;
+  font-weight: 700;
+  color: var(--sk-colors-ink);
+  letter-spacing: -0.02em;
+}
+
+.h1 {
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+.h2 {
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+.h3 {
+  font-size: 1.15rem;
+  line-height: 1.3;
+}
+
+.h4 {
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.text {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--sk-colors-ink);
+}
+
+.lead {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--sk-colors-inkSoft);
+}
+
+.muted {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--sk-colors-pencil);
+}
+
+.code {
+  display: inline;
+  padding: 2px 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85em;
+  color: var(--sk-colors-ink);
+}

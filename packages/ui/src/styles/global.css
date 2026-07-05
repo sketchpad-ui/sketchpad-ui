@@ -37,3 +37,35 @@
     display: none !important;
   }
 }
+
+/* Hand-drawn scrollbar — use on any overflow container */
+.sk-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--sk-colors-pencil) transparent;
+}
+
+.sk-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sk-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 6px 0;
+}
+
+.sk-scrollbar::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--sk-colors-pencil) 35%, var(--sk-colors-paper));
+  border: 1.5px solid var(--sk-colors-ink);
+  border-radius: 2px;
+  min-height: 40px;
+  box-shadow: 1px 1px 0 color-mix(in srgb, var(--sk-colors-ink) 12%, transparent);
+}
+
+.sk-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--sk-colors-pencil) 55%, var(--sk-colors-paperAlt));
+  border-color: var(--sk-colors-ink);
+}
+
+.sk-scrollbar::-webkit-scrollbar-corner {
+  background: transparent;
+}

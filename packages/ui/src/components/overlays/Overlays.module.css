@@ -66,6 +66,18 @@
   gap: 8px;
 }
 
+.toastContainerTop {
+  top: 24px;
+  bottom: auto;
+  right: 24px;
+}
+
+.sonnerStack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .toast {
   animation: popIn 160ms ease;
   min-width: 240px;

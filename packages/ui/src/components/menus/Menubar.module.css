@@ -1,0 +1,59 @@
+.menubar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+}
+
+.menubarTrigger {
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.875rem;
+  color: var(--sk-colors-inkSoft);
+  padding: 8px 12px;
+  cursor: pointer;
+  min-height: 36px;
+}
+
+.menubarTrigger:hover,
+.menubarTriggerOpen {
+  color: var(--sk-colors-ink);
+  background: color-mix(in srgb, var(--sk-colors-accentYellow) 45%, transparent);
+  border-radius: 4px;
+}
+
+.navMenu {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.navMenuItem {
+  position: relative;
+}
+
+.navSubmenu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 50;
+  min-width: 160px;
+  list-style: none;
+  margin: 0;
+  padding: 4px;
+}
+
+.navSubmenuLink {
+  display: block;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: var(--sk-colors-ink);
+  font-size: 0.875rem;
+  border-radius: 2px;
+}
+
+.navSubmenuLink:hover {
+  background: color-mix(in srgb, var(--sk-colors-accentYellow) 55%, transparent);
+}

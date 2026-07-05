@@ -285,7 +285,7 @@ export function Checkbox({
   const id = useId();
   return (
     <label htmlFor={id} className={styles.checkbox}>
-      <SketchBorder variant="rect" seed={seed} width={20} height={20} fill="paper">
+      <SketchBorder as="span" variant="rect" seed={seed} width={20} height={20} fill="paper">
         <span className={styles.checkboxBox}>
           <svg width={14} height={14} aria-hidden="true">
             <path
@@ -333,7 +333,7 @@ export function RadioGroup({
         });
         return (
           <label key={opt.value} htmlFor={id} className={styles.checkbox}>
-            <SketchBorder variant="oval" seed={`${seed}-${i}`} width={20} height={20} fill="paper">
+            <SketchBorder as="span" variant="oval" seed={`${seed}-${i}`} width={20} height={20} fill="paper">
               <span className={styles.checkboxBox}>
                 {selected && (
                   <svg width={10} height={10} aria-hidden="true">
@@ -373,9 +373,10 @@ export function Toggle({
   const id = useId();
   return (
     <label htmlFor={id} className={styles.toggle}>
-      <SketchBorder variant="oval" seed={seed} width={44} height={24} fill={checked ? 'accent' : 'paper'} accent="green">
+      <SketchBorder as="span" variant="oval" seed={seed} width={44} height={24} fill={checked ? 'accent' : 'paper'} accent="green">
         <span className={styles.toggleTrack}>
           <SketchBorder
+            as="span"
             variant="oval"
             seed={`${seed}-knob`}
             width={18}

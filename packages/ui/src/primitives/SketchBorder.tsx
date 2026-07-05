@@ -81,6 +81,36 @@ function interiorVariant(variant: NonNullable<SketchBorderProps['variant']>): 'r
   return 'rounded';
 }
 
+/** Host elements that only allow phrasing content (no nested divs). */
+const PHRASING_HOSTS = new Set([
+  'kbd',
+  'code',
+  'span',
+  'a',
+  'label',
+  'button',
+  'abbr',
+  'b',
+  'cite',
+  'em',
+  'i',
+  'mark',
+  'q',
+  's',
+  'small',
+  'strong',
+  'sub',
+  'sup',
+  'time',
+  'u',
+  'var',
+]);
+
+function usesPhrasingContentModel(as: ElementType | undefined): boolean {
+  if (typeof as !== 'string') return false;
+  return PHRASING_HOSTS.has(as);
+}
+
 export function SketchBorder({
   as,
   variant = 'rounded',
@@ -99,6 +129,7 @@ export function SketchBorder({
   strokeOpacity = 1,
 }: SketchBorderProps) {
   const Component = (as ?? 'div') as ElementType;
+  const ContentTag = usesPhrasingContentModel(as ?? 'div') ? 'span' : 'div';
   const containerRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: widthProp ?? 100, height: heightProp ?? 40 });
   const [isMobile, setIsMobile] = useState(false);
@@ -230,7 +261,7 @@ export function SketchBorder({
           />
         )}
       </svg>
-      <div className={styles.content}>{children}</div>
+      <ContentTag className={styles.content}>{children}</ContentTag>
     </Component>
   );
 }

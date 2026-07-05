@@ -73,7 +73,7 @@ export function Modal({ open, onClose, children, title }: OverlayProps) {
               </h2>
             )}
             <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Close">
-              <SketchBorder variant="oval" seed="close" width={28} height={28} fill="paper">
+              <SketchBorder as="span" variant="oval" seed="close" width={28} height={28} fill="paper">
                 ✕
               </SketchBorder>
             </button>
@@ -197,3 +197,33 @@ export function useToast() {
 
   return { toasts, show, dismiss };
 }
+
+export function Sonner({
+  toasts,
+  onDismiss,
+  position = 'bottom-right',
+}: {
+  toasts: ToastItem[];
+  onDismiss?: (id: string) => void;
+  position?: 'bottom-right' | 'top-right';
+}) {
+  return (
+    <div
+      className={cn(styles.toastContainer, position === 'top-right' && styles.toastContainerTop, styles.sonnerStack)}
+      aria-live="polite"
+    >
+      {toasts.map((toast) => (
+        <SketchBorder key={toast.id} variant="rounded" seed={`sonner-${toast.id}`} fill="paper" className={styles.toast}>
+          <div style={{ padding: '12px 16px', display: 'flex', justifyContent: 'space-between', gap: 12 }}>
+            <span>{toast.message}</span>
+            <button type="button" onClick={() => onDismiss?.(toast.id)} aria-label="Dismiss">
+              ✕
+            </button>
+          </div>
+        </SketchBorder>
+      ))}
+    </div>
+  );
+}
+
+export const useSonner = useToast;

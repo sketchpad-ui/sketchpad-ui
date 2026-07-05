@@ -1,0 +1,71 @@
+.carousel {
+  position: relative;
+}
+
+.carouselTrack {
+  display: flex;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+
+.carouselSlide {
+  flex: 0 0 100%;
+  padding: 8px;
+}
+
+.carouselNav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: var(--sk-colors-ink);
+  font-size: 1.25rem;
+  cursor: pointer;
+  min-width: 36px;
+  min-height: 36px;
+  z-index: 2;
+}
+
+.carouselPrev {
+  left: 4px;
+}
+
+.carouselNext {
+  right: 4px;
+}
+
+.chartWrap {
+  padding: 16px 12px 8px;
+}
+
+.chartSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.chartAxis {
+  stroke: var(--sk-colors-pencil);
+  stroke-width: 1.25;
+  fill: none;
+}
+
+.chartBar {
+  fill: color-mix(in srgb, var(--sk-colors-accentYellow) 70%, transparent);
+  stroke: var(--sk-colors-ink);
+  stroke-width: 0.8;
+}
+
+.chartLine {
+  fill: none;
+  stroke: var(--sk-colors-ink);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.chartLabel {
+  font-size: 0.65rem;
+  fill: var(--sk-colors-pencil);
+}

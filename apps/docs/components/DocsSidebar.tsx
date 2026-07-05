@@ -123,7 +123,7 @@ function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
 
 function SidebarPanel({ onNavigate }: { onNavigate?: () => void }) {
   return (
-    <>
+    <div className="docsSidebarLayout">
       <div className="sidebarTape" aria-hidden="true">
         <PaperTape />
       </div>
@@ -133,7 +133,9 @@ function SidebarPanel({ onNavigate }: { onNavigate?: () => void }) {
         <ThemeToggle className="sidebarThemeToggle" />
       </div>
 
-      <SidebarNav onNavigate={onNavigate} />
+      <div className="sidebarBody sk-scrollbar">
+        <SidebarNav onNavigate={onNavigate} />
+      </div>
 
       <div className="sidebarFooter">
         <Link
@@ -146,7 +148,7 @@ function SidebarPanel({ onNavigate }: { onNavigate?: () => void }) {
           <span className="sidebarFooterText">View on GitHub ↗</span>
         </Link>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -169,7 +171,14 @@ export function DocsSidebar() {
           fill="paper"
           roughness={tokens.roughness.subtle}
           strokeWidth={tokens.stroke.thin}
-          className="docsSidebarPanel"
+          className="docsSidebarBorder"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%',
+            width: '100%',
+            overflow: 'hidden',
+          }}
         >
           <SidebarPanel />
         </SketchBorder>

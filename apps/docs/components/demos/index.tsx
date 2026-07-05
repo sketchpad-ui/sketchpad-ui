@@ -13,11 +13,18 @@ import {
   Breadcrumbs,
   Button,
   ButtonGroup,
+  Calendar,
   Card,
+  Carousel,
+  Chart,
   Checkbox,
   Collapsible,
+  Combobox,
   Command,
   ContextMenu,
+  DataTable,
+  DatePicker,
+  DirectionProvider,
   Drawer,
   Divider,
   DropdownMenu,
@@ -31,21 +38,27 @@ import {
   Kbd,
   Label,
   Marker,
+  Menubar,
   Message,
   MessageScroller,
   Modal,
   NativeSelect,
+  NavigationMenu,
   Pagination,
   Paper,
   Popover,
   ProgressBar,
   RadioGroup,
+  Resizable,
+  ScrollArea,
   Select,
   Sidebar,
   SkeletonLoader,
   Slider,
+  Sonner,
   Spinner,
   StatCard,
+  Switch,
   Table,
   Tabs,
   TextInput,
@@ -54,10 +67,16 @@ import {
   Toggle,
   ToggleGroup,
   Tooltip,
+  useSonner,
   useToast,
   Navbar,
   Stepper,
   SearchInput,
+  Heading,
+  Text,
+  Lead,
+  Muted,
+  Code,
 } from 'sketchpad-ui';
 import { DemoBlock } from '../DocPage';
 
@@ -156,7 +175,7 @@ export function RadioGroupDemo() {
 
 export function SwitchDemo() {
   const [on, setOn] = useState(false);
-  return <DemoBlock><Toggle label="Notifications" checked={on} onChange={setOn} /></DemoBlock>;
+  return <DemoBlock><Switch label="Notifications" checked={on} onChange={setOn} /></DemoBlock>;
 }
 
 export function SliderDemo() {
@@ -202,6 +221,33 @@ export function NavbarDemo() {
   );
 }
 
+export function NavigationMenuDemo() {
+  return (
+    <DemoBlock>
+      <NavigationMenu
+        activeId="products"
+        items={[
+          { id: 'products', label: 'Products', items: [{ id: 'ui', label: 'Sketchpad UI' }, { id: 'tokens', label: 'Tokens' }] },
+          { id: 'docs', label: 'Docs' },
+        ]}
+      />
+    </DemoBlock>
+  );
+}
+
+export function MenubarDemo() {
+  return (
+    <DemoBlock>
+      <Menubar
+        menus={[
+          { id: 'file', label: 'File', items: [{ id: 'new', label: 'New' }, { id: 'open', label: 'Open' }] },
+          { id: 'edit', label: 'Edit', items: [{ id: 'undo', label: 'Undo' }, { id: 'redo', label: 'Redo' }] },
+        ]}
+      />
+    </DemoBlock>
+  );
+}
+
 export function StepperDemo() {
   return (
     <DemoBlock>
@@ -221,6 +267,28 @@ export function TableDemo() {
         { n: 'Button', s: 'Stable' },
         { n: 'Select', s: 'Beta' },
       ]} />
+    </DemoBlock>
+  );
+}
+
+export function DataTableDemo() {
+  const [selected, setSelected] = useState<string[]>([]);
+  return (
+    <DemoBlock>
+      <DataTable
+        selectable
+        selectedKeys={selected}
+        onSelectionChange={setSelected}
+        columns={[
+          { key: 'name', header: 'Name' },
+          { key: 'status', header: 'Status' },
+        ]}
+        data={[
+          { id: '1', name: 'Button', status: 'Stable' },
+          { id: '2', name: 'Select', status: 'Beta' },
+          { id: '3', name: 'Chart', status: 'New' },
+        ]}
+      />
     </DemoBlock>
   );
 }
@@ -281,9 +349,9 @@ export function SpinnerDemo() {
 export function KbdDemo() {
   return (
     <DemoBlock>
-      <p style={{ margin: 0 }}>
+      <div className="demoText">
         Press <Kbd>⌘</Kbd> + <Kbd>K</Kbd> to open the command palette.
-      </p>
+      </div>
     </DemoBlock>
   );
 }
@@ -445,6 +513,16 @@ export function ToastDemo() {
     <DemoBlock>
       <Button onClick={() => show('Saved successfully')}>Show toast</Button>
       <ToastContainer toasts={toasts} onDismiss={dismiss} />
+    </DemoBlock>
+  );
+}
+
+export function SonnerDemo() {
+  const { toasts, show, dismiss } = useSonner();
+  return (
+    <DemoBlock>
+      <Button onClick={() => show('Changes published')}>Show sonner toast</Button>
+      <Sonner toasts={toasts} onDismiss={dismiss} />
     </DemoBlock>
   );
 }
@@ -612,6 +690,141 @@ export function ItemDemo() {
   );
 }
 
+export function CalendarDemo() {
+  const [date, setDate] = useState<Date | undefined>(new Date());
+  return (
+    <DemoBlock>
+      <Calendar value={date} onChange={setDate} seed="doc-cal" />
+    </DemoBlock>
+  );
+}
+
+export function DatePickerDemo() {
+  const [date, setDate] = useState<Date | undefined>();
+  return (
+    <DemoBlock>
+      <DatePicker label="Due date" value={date} onChange={setDate} seed="doc-dp" />
+    </DemoBlock>
+  );
+}
+
+export function CarouselDemo() {
+  return (
+    <DemoBlock>
+      <Carousel
+        slides={[
+          <Paper key="1" seed="c1" style={{ padding: 32, textAlign: 'center' }}>Slide one</Paper>,
+          <Paper key="2" seed="c2" style={{ padding: 32, textAlign: 'center' }}>Slide two</Paper>,
+          <Paper key="3" seed="c3" style={{ padding: 32, textAlign: 'center' }}>Slide three</Paper>,
+        ]}
+      />
+    </DemoBlock>
+  );
+}
+
+export function ChartDemo() {
+  return (
+    <DemoBlock>
+      <div className="demoStack">
+        <Chart
+          data={[
+            { label: 'Mon', value: 12 },
+            { label: 'Tue', value: 28 },
+            { label: 'Wed', value: 18 },
+            { label: 'Thu', value: 34 },
+          ]}
+        />
+        <Chart
+          type="line"
+          data={[
+            { label: 'Jan', value: 8 },
+            { label: 'Feb', value: 14 },
+            { label: 'Mar', value: 22 },
+            { label: 'Apr', value: 18 },
+          ]}
+        />
+      </div>
+    </DemoBlock>
+  );
+}
+
+export function ComboboxDemo() {
+  const [value, setValue] = useState<string>();
+  return (
+    <DemoBlock>
+      <Combobox
+        label="Framework"
+        value={value}
+        onChange={setValue}
+        options={[
+          { value: 'react', label: 'React' },
+          { value: 'vue', label: 'Vue' },
+          { value: 'svelte', label: 'Svelte' },
+        ]}
+      />
+    </DemoBlock>
+  );
+}
+
+export function ToggleDemo() {
+  const [bold, setBold] = useState(false);
+  return (
+    <DemoBlock>
+      <Toggle pressed={bold} onPressedChange={setBold}>Bold</Toggle>
+    </DemoBlock>
+  );
+}
+
+export function ResizableDemo() {
+  return (
+    <DemoBlock>
+      <Resizable
+        left={<Paper seed="rl" style={{ padding: 16, height: '100%' }}>Left panel</Paper>}
+        right={<Paper seed="rr" style={{ padding: 16, height: '100%' }}>Right panel</Paper>}
+      />
+    </DemoBlock>
+  );
+}
+
+export function ScrollAreaDemo() {
+  return (
+    <DemoBlock>
+      <ScrollArea maxHeight={160}>
+        {Array.from({ length: 12 }, (_, i) => (
+          <p key={i} style={{ margin: '0 0 8px' }}>Scrollable line {i + 1}</p>
+        ))}
+      </ScrollArea>
+    </DemoBlock>
+  );
+}
+
+export function DirectionDemo() {
+  return (
+    <DemoBlock title="RTL preview">
+      <DirectionProvider dir="rtl">
+        <Paper seed="dir" style={{ padding: 16 }}>
+          <p style={{ margin: 0 }}>محتوى من اليمين إلى اليسار</p>
+        </Paper>
+      </DirectionProvider>
+    </DemoBlock>
+  );
+}
+
+export function TypographyDemo() {
+  return (
+    <DemoBlock>
+      <div className="demoStack">
+        <Heading level={1}>Heading one</Heading>
+        <Heading level={2}>Heading two</Heading>
+        <Lead>Lead text for introductions and hero copy.</Lead>
+        <Text>Body text with comfortable reading size and line height.</Text>
+        <Muted>Muted secondary text for captions and hints.</Muted>
+        <div className="demoText">Inline <Code>npm install sketchpad-ui</Code> snippet.</div>
+      </div>
+    </DemoBlock>
+  );
+}
+
 export const componentDemos: Record<string, React.ComponentType> = {
   accordion: AccordionDemo,
   alert: AlertDemo,
@@ -622,10 +835,17 @@ export const componentDemos: Record<string, React.ComponentType> = {
   badge: BadgeDemo,
   'button-group': ButtonGroupDemo,
   avatar: AvatarDemo,
+  calendar: CalendarDemo,
   card: CardDemo,
+  carousel: CarouselDemo,
+  chart: ChartDemo,
   collapsible: CollapsibleDemo,
+  combobox: ComboboxDemo,
   command: CommandDemo,
   'context-menu': ContextMenuDemo,
+  'data-table': DataTableDemo,
+  'date-picker': DatePickerDemo,
+  direction: DirectionDemo,
   'dropdown-menu': DropdownMenuDemo,
   field: FieldDemo,
   'hover-card': HoverCardDemo,
@@ -636,6 +856,7 @@ export const componentDemos: Record<string, React.ComponentType> = {
   kbd: KbdDemo,
   label: LabelDemo,
   marker: MarkerDemo,
+  menubar: MenubarDemo,
   message: MessageDemo,
   'message-scroller': MessageScrollerDemo,
   'native-select': NativeSelectDemo,
@@ -646,15 +867,17 @@ export const componentDemos: Record<string, React.ComponentType> = {
   switch: SwitchDemo,
   slider: SliderDemo,
   spinner: SpinnerDemo,
+  toggle: ToggleDemo,
   'toggle-group': ToggleGroupDemo,
   tabs: TabsDemo,
   breadcrumb: BreadcrumbDemo,
   pagination: PaginationDemo,
   sidebar: SidebarDemo,
-  'navigation-menu': NavbarDemo,
+  'navigation-menu': NavigationMenuDemo,
+  resizable: ResizableDemo,
+  'scroll-area': ScrollAreaDemo,
   stepper: StepperDemo,
   table: TableDemo,
-  'data-table': TableDemo,
   progress: ProgressDemo,
   skeleton: SkeletonDemo,
   empty: EmptyDemo,
@@ -665,6 +888,6 @@ export const componentDemos: Record<string, React.ComponentType> = {
   drawer: DrawerDemo,
   sheet: DrawerDemo,
   toast: ToastDemo,
-  sonner: ToastDemo,
+  sonner: SonnerDemo,
   separator: SeparatorDemo,
 };
