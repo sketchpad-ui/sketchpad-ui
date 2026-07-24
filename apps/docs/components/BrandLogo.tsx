@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 interface BrandLogoProps {
@@ -14,27 +13,19 @@ export function BrandLogo({
   className,
   asLink = true,
 }: BrandLogoProps) {
-  const inner = (
+  const mark = (
     <>
-      <Image
-        src="/logo.png"
-        alt=""
-        width={size}
-        height={size}
-        priority={size >= 64}
-        className="brandLogoImg"
-      />
-      {showWordmark && <span className="brandWordmark">Sketchpad UI</span>}
+      <span className="brandLogoMark" style={{ width: size, height: size }} aria-hidden="true">
+        S
+      </span>
+      {showWordmark && <span className="brandWordmark">SKETCHPAD UI</span>}
     </>
   );
 
-  if (!asLink) {
-    return <span className={`brandLogo ${className ?? ''}`}>{inner}</span>;
-  }
-
+  if (!asLink) return <span className={`brandLogo ${className ?? ''}`}>{mark}</span>;
   return (
     <Link href="/" className={`brandLogo ${className ?? ''}`}>
-      {inner}
+      {mark}
     </Link>
   );
 }

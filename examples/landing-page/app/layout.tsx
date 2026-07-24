@@ -5,7 +5,7 @@ import 'sketchpad-ui/styles.css';
 import { ExampleProviders } from './providers';
 
 export const metadata: Metadata = {
-  title: 'Sketchpad — Landing',
+  title: 'Sketchpad — Game UI example',
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -14,7 +14,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: getThemeInitScript() }} />
       </head>
-      <body style={{ margin: 0, background: 'var(--sk-colors-paper)', color: 'var(--sk-colors-ink)' }}>
+      <body style={{ margin: 0, background: 'var(--sk-colors-canvas)', color: 'var(--sk-colors-text)' }}>
         <ExampleProviders>{children}</ExampleProviders>
       </body>
     </html>

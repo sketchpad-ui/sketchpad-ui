@@ -1,9 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { tokens } from '@sketchpad/tokens';
 import { Badge, SketchBorder } from 'sketchpad-ui';
-import type { DocItem } from '../lib/docs-config';
+import { getComponentPhase, type DocItem } from '../lib/docs-config';
 
 export function ComponentCard({ item }: { item: DocItem }) {
   const badge =
@@ -13,14 +12,12 @@ export function ComponentCard({ item }: { item: DocItem }) {
     <Link href={`/docs/components/${item.slug}`} className="componentCardLink">
       <SketchBorder
         variant="rounded"
-        seed={`card-${item.slug}`}
         fill="paper"
-        roughness={tokens.roughness.low}
-        strokeWidth={tokens.stroke.thin}
         className="componentCardSketch"
       >
         <div className="componentCardTop">
           <span className="componentCardName">{item.name}</span>
+          <span className="componentPhase">P{getComponentPhase(item.slug)}</span>
           {badge && (
             <Badge
               variant={item.status === 'new' ? 'marker' : item.status === 'partial' ? 'stamp' : 'default'}

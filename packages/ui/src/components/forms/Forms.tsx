@@ -10,8 +10,7 @@ import {
   type ReactNode,
   type TextareaHTMLAttributes,
 } from 'react';
-import { tokens, colorVars } from '@sketchpad/tokens';
-import { generateOvalPath, resolveSeed } from '@sketchpad/sketch-core';
+import { colorVars } from '@sketchpad/tokens';
 import { SketchBorder } from '../../primitives/SketchBorder.js';
 import type { SketchComponentProps } from '../../types.js';
 import { cn } from '../../utils.js';
@@ -326,19 +325,15 @@ export function RadioGroup({
       {options.map((opt, i) => {
         const id = `${name}-${opt.value}`;
         const selected = value === opt.value;
-        const dotPath = generateOvalPath(8, 8, {
-          roughness: tokens.roughness.low,
-          strokeWidth: tokens.stroke.thin,
-          seed: resolveSeed(`${seed}-${i}`, 'dot'),
-        });
         return (
           <label key={opt.value} htmlFor={id} className={styles.checkbox}>
             <SketchBorder as="span" variant="oval" seed={`${seed}-${i}`} width={20} height={20} fill="paper">
               <span className={styles.checkboxBox}>
                 {selected && (
-                  <svg width={10} height={10} aria-hidden="true">
-                    <path d={dotPath.fillPath} fill={colorVars.ink} />
-                  </svg>
+                  <span
+                    aria-hidden="true"
+                    style={{ width: 10, height: 10, borderRadius: '50%', background: colorVars.ink }}
+                  />
                 )}
               </span>
             </SketchBorder>

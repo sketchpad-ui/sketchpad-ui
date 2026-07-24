@@ -1,0 +1,10 @@
+name: sketchpad_ui_workspace
+packages:
+  - packages/flutter
+  - apps/flutter_gallery
+
+scripts:
+  analyze:
+    run: melos exec -- flutter analyze
+  test:
+    run: melos exec --dir-exists=test -- flutter test

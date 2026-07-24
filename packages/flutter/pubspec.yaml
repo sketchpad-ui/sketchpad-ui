@@ -1,0 +1,22 @@
+name: sketchpad_ui
+description: Neubrutalist, game-ready UI components for Flutter.
+version: 0.1.0
+homepage: https://sketchpad-ui.dev
+repository: https://github.com/sketchpad/sketchpad-ui
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+  flutter: ">=3.22.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  intl: ^0.20.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true

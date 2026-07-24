@@ -1,96 +1,150 @@
+/**
+ * Sketchpad's canonical Neubrutalist theme contract.
+ *
+ * The legacy token keys remain as aliases for the first rebuild release so
+ * existing component implementations can migrate without shipping two visual
+ * systems. New code should use the semantic keys.
+ */
+
+export const accentPresets = {
+  blue: '#3D7EFF',
+  yellow: '#FFD23F',
+  pink: '#FF4D9D',
+  green: '#5CD65C',
+  orange: '#FF8A3D',
+  purple: '#9B6DFF',
+} as const;
+
+export type AccentColor = keyof typeof accentPresets;
+export type ThemeName = 'light' | 'dark';
+
 const shared = {
   radii: {
-    sketchSm: 4,
-    sketchMd: 10,
-    sketchLg: 20,
+    none: 0,
+    sm: 4,
+    md: 8,
+    sketchSm: 0,
+    sketchMd: 4,
+    sketchLg: 8,
+  },
+  border: {
+    compact: 2,
+    default: 3,
   },
   stroke: {
-    thin: 1,
-    medium: 1.25,
-    thick: 2,
-  },
-  roughness: {
-    /** Large chrome — sidebars, panels, code blocks */
-    subtle: 0.35,
-    low: 0.5,
-    /** Default interactive UI */
-    medium: 0.85,
-    /** Skeleton loaders, scribbles, playground extremes */
-    high: 1.4,
+    thin: 2,
+    medium: 3,
+    thick: 4,
   },
   shadow: {
-    offsetSm: 2,
+    offsetSm: 3,
     offsetMd: 4,
   },
+  motion: {
+    fast: 80,
+    default: 140,
+    slow: 160,
+  },
+  roughness: {
+    subtle: 0,
+    low: 0,
+    medium: 0,
+    high: 0,
+  },
   font: {
-    body: "'Inter', system-ui, sans-serif",
-    annotation: "'Kalam', 'Caveat', cursive",
+    heading: "'Archivo Black', 'Arial Black', sans-serif",
+    body: "'Space Grotesk', 'Arial', sans-serif",
+    code: "'JetBrains Mono', 'SFMono-Regular', Consolas, monospace",
+    annotation: "'Space Grotesk', 'Arial', sans-serif",
   },
   breakpoint: {
-    mobile: 480,
+    mobile: 640,
   },
 } as const;
 
 export const tokensLight = {
   ...shared,
   colors: {
-    paper: '#FAFAFA',
-    paperAlt: '#F5F5F5',
-    paperBright: '#FFFFFF',
+    canvas: '#FFF6E5',
+    surface: '#FFFFFF',
+    surfaceRaised: '#FFFDF7',
+    text: '#171717',
+    textMuted: '#5B5B66',
+    border: '#171717',
+    hardShadow: '#171717',
+    disabled: '#CAC7BE',
+    backdrop: 'rgba(23, 23, 23, 0.68)',
+    focus: accentPresets.blue,
+    success: accentPresets.green,
+    warning: accentPresets.yellow,
+    danger: '#FF5A5F',
+    info: accentPresets.blue,
+
+    // Compatibility aliases used by the existing catalog while it migrates.
+    paper: '#FFF6E5',
+    paperAlt: '#FFFFFF',
+    paperBright: '#FFFDF7',
     ink: '#171717',
-    inkSoft: '#525252',
-    pencil: '#A3A3A3',
-    disabled: '#D4D4D4',
-    backdrop: 'rgba(0, 0, 0, 0.45)',
-    accentYellow: '#E5E5E5',
-    accentBlue: '#D4D4D4',
-    accentRed: '#737373',
-    accentGreen: '#DBDBDB',
-    accentLavender: '#E0E0E0',
+    inkSoft: '#5B5B66',
+    pencil: '#77737E',
+    accentYellow: accentPresets.yellow,
+    accentBlue: accentPresets.blue,
+    accentRed: '#FF5A5F',
+    accentGreen: accentPresets.green,
+    accentLavender: accentPresets.purple,
   },
 } as const;
 
 export const tokensDark = {
   ...shared,
   colors: {
-    paper: '#0A0A0A',
-    paperAlt: '#141414',
-    paperBright: '#1A1A1A',
-    ink: '#FAFAFA',
-    inkSoft: '#A3A3A3',
-    pencil: '#737373',
-    disabled: '#525252',
-    backdrop: 'rgba(0, 0, 0, 0.72)',
-    accentYellow: '#3A3A3A',
-    accentBlue: '#454545',
-    accentRed: '#D4D4D4',
-    accentGreen: '#404040',
-    accentLavender: '#474747',
+    canvas: '#101014',
+    surface: '#1B1B22',
+    surfaceRaised: '#24242E',
+    text: '#FFF8E7',
+    textMuted: '#B8B8C4',
+    border: '#F6F1E7',
+    hardShadow: '#000000',
+    disabled: '#54545F',
+    backdrop: 'rgba(0, 0, 0, 0.78)',
+    focus: accentPresets.yellow,
+    success: accentPresets.green,
+    warning: accentPresets.yellow,
+    danger: '#FF7478',
+    info: '#6B9BFF',
+
+    // Compatibility aliases.
+    paper: '#101014',
+    paperAlt: '#1B1B22',
+    paperBright: '#24242E',
+    ink: '#FFF8E7',
+    inkSoft: '#B8B8C4',
+    pencil: '#8F8F9D',
+    accentYellow: accentPresets.yellow,
+    accentBlue: '#6B9BFF',
+    accentRed: '#FF7478',
+    accentGreen: '#72E072',
+    accentLavender: '#B291FF',
   },
 } as const;
 
-/** @deprecated alias — use tokensLight or themes.light */
 export const tokens = tokensLight;
-
-export const themes = {
-  light: tokensLight,
-  dark: tokensDark,
-} as const;
-
-export type ThemeName = keyof typeof themes;
+export const themes = { light: tokensLight, dark: tokensDark } as const;
 export type Tokens = typeof tokensLight;
-export type AccentColor = 'yellow' | 'blue' | 'red' | 'green' | 'lavender';
 
-export const accentColorMap: Record<AccentColor, string> = {
-  yellow: tokensLight.colors.accentYellow,
-  blue: tokensLight.colors.accentBlue,
-  red: tokensLight.colors.accentRed,
-  green: tokensLight.colors.accentGreen,
-  lavender: tokensLight.colors.accentLavender,
-};
+export const accentColorMap: Record<AccentColor, string> = { ...accentPresets };
 
-/** CSS custom property references for theme-aware SVG / inline styles */
 export const colorVars = {
+  canvas: 'var(--sk-colors-canvas)',
+  surface: 'var(--sk-colors-surface)',
+  surfaceRaised: 'var(--sk-colors-surfaceRaised)',
+  text: 'var(--sk-colors-text)',
+  textMuted: 'var(--sk-colors-textMuted)',
+  border: 'var(--sk-colors-border)',
+  hardShadow: 'var(--sk-colors-hardShadow)',
+  focus: 'var(--sk-colors-focus)',
+  accent: 'var(--sk-accent)',
+  onAccent: 'var(--sk-on-accent)',
   paper: 'var(--sk-colors-paper)',
   paperAlt: 'var(--sk-colors-paperAlt)',
   paperBright: 'var(--sk-colors-paperBright)',
@@ -107,48 +161,46 @@ export const colorVars = {
 } as const;
 
 export const accentColorVarMap: Record<AccentColor, string> = {
-  yellow: colorVars.accentYellow,
-  blue: colorVars.accentBlue,
-  red: colorVars.accentRed,
-  green: colorVars.accentGreen,
-  lavender: colorVars.accentLavender,
+  blue: 'var(--sk-accent-blue)',
+  yellow: 'var(--sk-accent-yellow)',
+  pink: 'var(--sk-accent-pink)',
+  green: 'var(--sk-accent-green)',
+  orange: 'var(--sk-accent-orange)',
+  purple: 'var(--sk-accent-purple)',
 };
 
-/** WCAG contrast ratio between ink and paper for the given theme */
+export function isValidHexAccent(value: string): boolean {
+  return /^#[0-9a-f]{6}$/i.test(value);
+}
+
+export function getReadableForeground(background: string): '#171717' | '#FFFFFF' {
+  if (!isValidHexAccent(background)) return '#171717';
+  return contrastRatio('#171717', background) >= contrastRatio('#FFFFFF', background)
+    ? '#171717'
+    : '#FFFFFF';
+}
+
 export function getInkOnPaperContrastRatio(theme: ThemeName = 'light'): number {
-  const t = themes[theme];
-  return contrastRatio(t.colors.ink, t.colors.paper);
+  const current = themes[theme];
+  return contrastRatio(current.colors.text, current.colors.canvas);
 }
 
 function contrastRatio(foreground: string, background: string): number {
-  const fg = parseColorLuminance(foreground);
-  const bg = parseColorLuminance(background);
+  const fg = hexToLuminance(foreground);
+  const bg = hexToLuminance(background);
   const lighter = Math.max(fg, bg);
   const darker = Math.min(fg, bg);
   return (lighter + 0.05) / (darker + 0.05);
 }
 
-function parseColorLuminance(color: string): number {
-  if (color.startsWith('#')) return hexToLuminance(color);
-  const rgba = color.match(/rgba?\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)/);
-  if (rgba) {
-    return relativeLuminance(Number(rgba[1]) / 255, Number(rgba[2]) / 255, Number(rgba[3]) / 255);
-  }
-  return 0;
-}
-
 function hexToLuminance(hex: string): number {
-  const r = parseInt(hex.slice(1, 3), 16) / 255;
-  const g = parseInt(hex.slice(3, 5), 16) / 255;
-  const b = parseInt(hex.slice(5, 7), 16) / 255;
-  return relativeLuminance(r, g, b);
-}
-
-function relativeLuminance(r: number, g: number, b: number): number {
-  const [rs, gs, bs] = [r, g, b].map((c) =>
-    c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4),
-  );
-  return 0.2126 * rs! + 0.7152 * gs! + 0.0722 * bs!;
+  const value = hex.replace('#', '');
+  const red = parseInt(value.slice(0, 2), 16) / 255;
+  const green = parseInt(value.slice(2, 4), 16) / 255;
+  const blue = parseInt(value.slice(4, 6), 16) / 255;
+  const convert = (channel: number) =>
+    channel <= 0.03928 ? channel / 12.92 : Math.pow((channel + 0.055) / 1.055, 2.4);
+  return 0.2126 * convert(red) + 0.7152 * convert(green) + 0.0722 * convert(blue);
 }
 
 export { getThemeInitScript } from './themeScript.js';

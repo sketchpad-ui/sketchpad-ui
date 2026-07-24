@@ -1,34 +1,43 @@
 import type { Metadata } from 'next';
-import { Inter, Kalam } from 'next/font/google';
 import { getThemeInitScript } from '@sketchpad/tokens';
 import '@sketchpad/tokens/tokens.css';
 import 'sketchpad-ui/styles.css';
 import './globals.css';
 import { DocsProviders } from '../components/DocsProviders';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-body' });
-const kalam = Kalam({ weight: '400', subsets: ['latin'], variable: '--font-annotation' });
-
 export const metadata: Metadata = {
+  metadataBase: new URL('https://sketchpad-ui.dev'),
   title: {
-    default: 'Sketchpad UI',
+    default: 'Sketchpad UI — Neubrutalist React & Flutter components',
     template: '%s · Sketchpad UI',
   },
-  description: 'Hand-sketched wireframe React components. Copy-friendly, accessible, fully documented.',
-  icons: {
-    icon: '/logo.png',
-    apple: '/logo.png',
-  },
+  description:
+    '64 loud, accessible Neubrutalist components for React, Next.js, and Flutter games.',
+  icons: { icon: '/logo.png', apple: '/logo.png' },
   openGraph: {
     title: 'Sketchpad UI',
-    description: 'Hand-sketched wireframe React component library',
-    images: [{ url: '/logo.png', width: 1254, height: 1254, alt: 'Sketchpad UI logo' }],
+    description: 'Game-ready Neubrutalist components for React and Flutter.',
+    type: 'website',
+    images: [
+      {
+        url: '/og.png',
+        width: 1731,
+        height: 909,
+        alt: 'Sketchpad UI — Game UI. Loud & Clear.',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Sketchpad UI',
+    description: 'Game-ready Neubrutalist components for React and Flutter.',
+    images: ['/og.png'],
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${kalam.variable}`} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: getThemeInitScript() }} />
       </head>

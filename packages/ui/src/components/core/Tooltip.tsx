@@ -8,8 +8,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import { tokens, colorVars } from '@sketchpad/tokens';
-import { generateRectPath, resolveSeed } from '@sketchpad/sketch-core';
+import { tokens } from '@sketchpad/tokens';
 import { SketchBorder } from '../../primitives/SketchBorder.js';
 import type { SketchComponentProps } from '../../types.js';
 import { cn } from '../../utils.js';
@@ -114,21 +113,22 @@ export function Popover({
   );
 }
 
-function PopoverArrow({ seed }: { seed: string | number }) {
-  const path = generateRectPath(12, 8, 0, {
-    roughness: tokens.roughness.low,
-    strokeWidth: tokens.stroke.thin,
-    seed: resolveSeed(`${seed}-arrow`, 'arrow'),
-  });
+function PopoverArrow({ seed: _seed }: { seed: string | number }) {
   return (
-    <svg
-      width={12}
-      height={8}
-      style={{ position: 'absolute', top: -6, left: 16 }}
+    <span
       aria-hidden="true"
-    >
-      <path d={path.fillPath} fill={colorVars.paper} />
-    </svg>
+      style={{
+        position: 'absolute',
+        top: -8,
+        left: 16,
+        width: 14,
+        height: 14,
+        background: 'var(--sk-colors-canvas)',
+        borderTop: '3px solid var(--sk-colors-border)',
+        borderLeft: '3px solid var(--sk-colors-border)',
+        transform: 'rotate(45deg)',
+      }}
+    />
   );
 }
 

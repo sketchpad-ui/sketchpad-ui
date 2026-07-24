@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['sketchpad-ui', '@sketchpad/tokens', '@sketchpad/sketch-core'],
+  transpilePackages: ['sketchpad-ui', '@sketchpad/tokens'],
 };
 export default nextConfig;

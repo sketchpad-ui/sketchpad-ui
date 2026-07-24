@@ -1,9 +1,17 @@
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { cpSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const src = readFileSync(join(__dirname, '../src/styles/global.css'), 'utf8');
-const outDir = join(__dirname, '../dist');
-mkdirSync(outDir, { recursive: true });
-writeFileSync(join(outDir, 'styles.css'), src);
+const scriptDirectory = dirname(fileURLToPath(import.meta.url));
+const sourceDirectory = join(scriptDirectory, '../src');
+const outputDirectory = join(scriptDirectory, '../dist');
+
+mkdirSync(outputDirectory, { recursive: true });
+cpSync(sourceDirectory, outputDirectory, {
+  recursive: true,
+  filter: (source) => !source.includes('/__tests__/') && !source.endsWith('.tsx') && !source.endsWith('.ts'),
+});
+cpSync(
+  join(sourceDirectory, 'styles/global.css'),
+  join(outputDirectory, 'styles.css'),
+);

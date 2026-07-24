@@ -1,68 +1,71 @@
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const tokensPath = join(__dirname, '../dist/index.js');
+const scriptDirectory = dirname(fileURLToPath(import.meta.url));
+const { accentPresets, tokensLight, tokensDark } = await import(
+  join(scriptDirectory, '../dist/index.js')
+);
 
-const { tokensLight, tokensDark } = await import(tokensPath);
-
-function emitColorVars(colors, indent = '  ') {
-  const lines = [];
-  for (const [key, value] of Object.entries(colors)) {
-    lines.push(`${indent}--sk-colors-${key}: ${value};`);
-  }
-  return lines;
+function emitObject(prefix, object, indent = '  ') {
+  return Object.entries(object).map(([key, value]) => `${indent}--sk-${prefix}-${key}: ${value};`);
 }
 
-function emitSharedVars(tokens, indent = '  ') {
-  const lines = [];
+function emitTheme(tokens, indent = '  ') {
+  const output = [];
   for (const [group, values] of Object.entries(tokens)) {
-    if (group === 'colors') continue;
-    for (const [key, value] of Object.entries(values)) {
-      lines.push(`${indent}--sk-${group}-${key}: ${value};`);
-    }
+    output.push(...emitObject(group, values, indent));
   }
-  return lines;
+  return output;
 }
 
-function emitThemeBlock(tokens) {
-  return [...emitColorVars(tokens.colors), ...emitSharedVars(tokens)];
+function accentLines(indent = '  ') {
+  return Object.entries(accentPresets).map(
+    ([name, value]) => `${indent}--sk-accent-${name}: ${value};`,
+  );
 }
 
 const lines = [
   ':root {',
-  ...emitThemeBlock(tokensLight),
+  ...emitTheme(tokensLight),
+  ...accentLines(),
+  '  --sk-accent: var(--sk-accent-blue);',
+  '  --sk-on-accent: #171717;',
+  '  --sk-accent-hover: color-mix(in srgb, var(--sk-accent) 86%, #ffffff);',
+  '  --sk-accent-pressed: color-mix(in srgb, var(--sk-accent) 82%, #000000);',
+  '  color-scheme: light;',
   '}',
   '',
   '@media (prefers-color-scheme: dark) {',
   '  :root:not([data-sk-theme="light"]) {',
-  ...emitThemeBlock(tokensDark).map((l) => `  ${l}`),
+  ...emitTheme(tokensDark, '    '),
+  '    color-scheme: dark;',
   '  }',
   '}',
   '',
   '[data-sk-theme="dark"] {',
-  ...emitThemeBlock(tokensDark),
+  ...emitTheme(tokensDark),
+  '  color-scheme: dark;',
   '}',
   '',
   '[data-sk-theme="light"] {',
-  ...emitThemeBlock(tokensLight),
+  ...emitTheme(tokensLight),
+  '  color-scheme: light;',
   '}',
   '',
-  '@media (max-width: 480px) {',
-  '  :root {',
-  '    --sk-stroke-thin: 0.85;',
-  '    --sk-stroke-medium: 1.1;',
-  '    --sk-stroke-thick: 1.75;',
-  '    --sk-roughness-subtle: 0.28;',
-  '    --sk-roughness-low: 0.38;',
-  '    --sk-roughness-medium: 0.65;',
-  '    --sk-roughness-high: 1.05;',
-  '  }',
+  ...Object.keys(accentPresets).flatMap((name) => [
+    `[data-sk-color="${name}"] {`,
+    `  --sk-accent: var(--sk-accent-${name});`,
+    '  --sk-on-accent: #171717;',
+    '}',
+    '',
+  ]),
+  '[data-sk-custom-accent] {',
+  '  --sk-accent: var(--sk-custom-accent);',
+  '  --sk-on-accent: var(--sk-custom-on-accent);',
   '}',
 ];
 
-const outDir = join(__dirname, '../dist');
-mkdirSync(outDir, { recursive: true });
-writeFileSync(join(outDir, 'tokens.css'), lines.join('\n'));
-console.log('Generated tokens.css');
+const outputDirectory = join(scriptDirectory, '../dist');
+mkdirSync(outputDirectory, { recursive: true });
+writeFileSync(join(outputDirectory, 'tokens.css'), lines.join('\n'));

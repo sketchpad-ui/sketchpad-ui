@@ -4,13 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 3000",
-    "build": "next build",
+    "build": "node node_modules/next/dist/bin/next build && node scripts/prepare-sites.mjs",
     "start": "next start",
     "lint": "eslint app",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@sketchpad/sketch-core": "workspace:*",
     "@sketchpad/tokens": "workspace:*",
     "next": "^15.1.2",
     "react": "^19.0.0",

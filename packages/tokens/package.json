@@ -1,23 +1,22 @@
 {
   "name": "@sketchpad/tokens",
   "version": "0.1.0",
-  "description": "Design tokens for Sketchpad UI",
+  "description": "Cross-framework Neubrutalist design tokens for Sketchpad UI",
   "license": "MIT",
   "type": "module",
-  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
     },
-    "./tokens.css": "./dist/tokens.css"
+    "./tokens.css": "./dist/tokens.css",
+    "./tokens.json": "./tokens.json"
   },
-  "files": ["dist"],
+  "files": ["dist", "tokens.json"],
   "scripts": {
-    "build": "tsup && node scripts/generate-css.mjs",
+    "build": "tsc --noEmit false && node scripts/generate-css.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src",
     "test": "vitest run --config ../../vitest.config.ts --environment node"

@@ -4,44 +4,58 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
+  min-width: 44px;
+  min-height: 44px;
   padding: 10px 18px;
-  border: none;
+  border: 0;
+  border-radius: inherit;
   background: transparent;
+  color: var(--sk-colors-text);
   font-family: inherit;
   font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--sk-colors-ink, #171717);
+  font-weight: 800;
+  letter-spacing: 0.01em;
   cursor: pointer;
-  transition: transform 120ms ease, opacity 120ms ease;
-  min-height: 44px;
-  min-width: 44px;
+  transition:
+    transform 80ms ease,
+    background-color 80ms ease;
 }
 
 .button:hover:not(:disabled) {
-  transform: translate(1px, 1px);
+  background: color-mix(in srgb, currentColor 7%, transparent);
 }
 
 .button:active:not(:disabled) {
-  transform: translate(2px, 2px);
+  transform: translate(3px, 3px);
 }
 
 .button:focus-visible {
-  outline: 2px solid var(--sk-colors-ink, #171717);
-  outline-offset: 3px;
+  outline: 3px solid var(--sk-accent);
+  outline-offset: 5px;
 }
 
 .button:disabled {
-  color: var(--sk-colors-disabled, #b8b2a6);
+  color: var(--sk-colors-textMuted);
   cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.primary {
+  color: var(--sk-on-accent);
+}
+
+.filled {
+  color: var(--sk-colors-text);
 }
 
 .sm {
+  min-height: 36px;
   padding: 6px 12px;
   font-size: 0.85rem;
-  min-height: 36px;
 }
 
 .lg {
+  min-height: 52px;
   padding: 14px 24px;
   font-size: 1.05rem;
 }
@@ -51,30 +65,25 @@
 }
 
 .link {
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  min-height: 0;
   padding: 4px 8px;
-}
-
-.shadow {
-  position: absolute;
-  inset: 0;
-  transform: translate(var(--sk-shadow-offsetSm, 2px), var(--sk-shadow-offsetSm, 2px));
-  background: var(--sk-colors-pencil, #8a867c);
-  opacity: 0.25;
-  z-index: -1;
-  border-radius: 2px;
-}
-
-.button:active:not(:disabled) .shadow {
-  transform: translate(0, 0);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
 }
 
 .fullWidth {
+  display: block;
   width: 100%;
 }
 
 .badgeMarker {
-  color: var(--sk-colors-ink, #171717);
-  font-weight: 500;
+  color: var(--sk-on-accent);
+  font-weight: 800;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
 }

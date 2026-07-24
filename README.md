@@ -1,64 +1,37 @@
 # Sketchpad UI
 
-Production-quality React component library with a pen-on-paper, hand-sketched wireframe aesthetic — accessible, fully functional, zero runtime dependencies.
-
-## Monorepo structure
-
-```
-sketchpad/
-├── apps/docs/              # Next.js documentation site
-├── packages/
-│   ├── tokens/             # Design tokens (colors, stroke, roughness)
-│   ├── sketch-core/        # Seeded RNG + SVG path generator
-│   ├── ui/                 # sketchpad-ui — published component library
-│   └── icons/              # Hand-drawn icon set
-└── examples/
-    ├── landing-page/
-    ├── dashboard/
-    └── mobile-layout/
-```
-
-## Development
-
-```bash
-pnpm install
-pnpm build
-pnpm dev          # Start docs site
-pnpm test
-pnpm typecheck
-pnpm lint
-```
+Game-ready Neubrutalist components for React, Next.js, and Flutter mobile.
 
 ## Packages
 
-| Package | npm name | Description |
-|---------|----------|-------------|
-| `packages/ui` | `sketchpad-ui` | React components |
-| `packages/tokens` | `@sketchpad/tokens` | Design tokens + CSS variables |
-| `packages/sketch-core` | `@sketchpad/sketch-core` | Path rendering engine |
-| `packages/icons` | `@sketchpad/icons` | Icon components |
+| Package | Platform | Purpose |
+| --- | --- | --- |
+| `sketchpad-ui` | npm | 64 typed React components and theme providers |
+| `sketchpad_ui` | pub.dev | Adaptive Flutter widgets and theme extensions |
+| `@sketchpad/tokens` | npm | Shared light/dark tokens and six arcade accents |
 
-## Quick start
+## Themes
 
-```bash
-npm install sketchpad-ui @sketchpad/tokens
-```
+Sketchpad ships light and dark semantic themes plus blue, yellow, pink, green,
+orange, and purple accents. React consumers use `ThemeProvider`; Flutter
+consumers add `SketchpadThemeData` to `ThemeData.extensions`.
 
 ```tsx
-import { Button, Paper } from 'sketchpad-ui';
+import { Button, ThemeProvider } from 'sketchpad-ui';
 import '@sketchpad/tokens/tokens.css';
+import 'sketchpad-ui/styles.css';
 
-export function App() {
-  return (
-    <Paper>
-      <Button variant="primary" seed="hero-cta">
-        Get started
-      </Button>
-    </Paper>
-  );
-}
+<ThemeProvider defaultTheme="system" defaultColor="blue">
+  <Button>Play</Button>
+</ThemeProvider>
 ```
 
-## License
+```dart
+MaterialApp(
+  theme: sketchpadMaterialTheme(SketchpadThemeData.light()),
+  darkTheme: sketchpadMaterialTheme(SketchpadThemeData.dark()),
+);
+```
 
-MIT
+The documentation app lives in `apps/docs`; the verified mobile gallery lives
+in `apps/flutter_gallery`.

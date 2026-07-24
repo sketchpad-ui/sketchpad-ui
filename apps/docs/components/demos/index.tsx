@@ -327,7 +327,7 @@ export function AlertDemo() {
   return (
     <DemoBlock>
       <div className="demoStack">
-        <Alert title="Heads up">Your sketch export is ready to download.</Alert>
+        <Alert title="Bonus unlocked">Double XP is active for the next match.</Alert>
         <Alert variant="destructive" title="Error">Something went wrong. Try again.</Alert>
       </div>
     </DemoBlock>
@@ -382,7 +382,7 @@ export function AccordionDemo() {
     <DemoBlock>
       <Accordion
         items={[
-          { id: 'a', title: 'What is Sketchpad UI?', content: 'A hand-sketched React component library.' },
+          { id: 'a', title: 'What is Sketchpad UI?', content: 'A cross-framework Neubrutalist component library.' },
           { id: 'b', title: 'Is it accessible?', content: 'Components follow WCAG patterns with keyboard support.' },
         ]}
       />
@@ -394,7 +394,7 @@ export function CollapsibleDemo() {
   return (
     <DemoBlock>
       <Collapsible trigger="Show details">
-        <p style={{ margin: 0 }}>Extra content revealed with a sketch chevron trigger.</p>
+        <p style={{ margin: 0 }}>Extra content revealed with a bold disclosure trigger.</p>
       </Collapsible>
     </DemoBlock>
   );
@@ -479,7 +479,7 @@ export function DialogDemo() {
     <DemoBlock>
       <Button onClick={() => setOpen(true)}>Open dialog</Button>
       <Modal open={open} onClose={() => setOpen(false)} title="Dialog">
-        <p>Modal content on stacked paper sheets.</p>
+        <p>Focus-managed modal content on a hard-shadow surface.</p>
       </Modal>
     </DemoBlock>
   );
@@ -489,7 +489,7 @@ export function AlertDialogDemo() {
   const [open, setOpen] = useState(false);
   return (
     <DemoBlock>
-      <Button variant="accent" accent="red" onClick={() => setOpen(true)}>Delete</Button>
+      <Button variant="accent" accent="pink" onClick={() => setOpen(true)}>Delete</Button>
       <AlertDialog open={open} onClose={() => setOpen(false)} title="Are you sure?" description="This action cannot be undone." onConfirm={() => setOpen(false)}>
         {null}
       </AlertDialog>
@@ -660,7 +660,7 @@ export function CommandDemo() {
 export function HoverCardDemo() {
   return (
     <DemoBlock>
-      <HoverCard content={<p style={{ margin: 0 }}>Sketchpad UI · hand-drawn React components with accessible defaults.</p>}>
+      <HoverCard content={<p style={{ margin: 0 }}>Sketchpad UI · Neubrutalist React and Flutter components.</p>}>
         <Button variant="link">@sketchpad-ui</Button>
       </HoverCard>
     </DemoBlock>
@@ -682,7 +682,7 @@ export function ItemDemo() {
     <DemoBlock>
       <Item
         title="SketchBorder"
-        description="SVG path engine wrapper"
+        description="Uniform border and hard-shadow surface"
         media={<Avatar placeholder pixelSize={36} seed="item-av" />}
         action={<Button size="sm" variant="ghost">Open</Button>}
       />

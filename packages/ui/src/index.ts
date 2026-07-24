@@ -135,9 +135,10 @@ export { DataTable } from './components/data/DataTable.js';
 
 export { cn, deriveSeed, useReducedMotion, useIsMobile } from './utils.js';
 
-export { ThemeProvider } from './theme/ThemeProvider.js';
+export { ThemeProvider, SketchpadProvider } from './theme/ThemeProvider.js';
+export type { ThemeProviderProps, SketchpadProviderProps } from './theme/ThemeProvider.js';
 export { useTheme } from './theme/useTheme.js';
 export { ThemeToggle } from './theme/ThemeToggle.js';
-export type { ThemeSetting, ResolvedTheme } from './theme/types.js';
+export type { ThemeSetting, ResolvedTheme, ThemeColor } from './theme/types.js';
 
 export { DirectionProvider, useDirection } from './theme/Direction.js';

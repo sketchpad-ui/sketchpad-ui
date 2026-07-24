@@ -24,14 +24,19 @@ export function Button({
   seed,
   roughness,
   strokeWidth,
-  accent = 'yellow',
+  accent = 'blue',
   className,
   children,
   fullWidth,
   ...rest
 }: ButtonProps) {
   const isGhost = variant === 'ghost' || variant === 'link';
-  const fill = variant === 'filled' || variant === 'accent' ? 'accent' : variant === 'primary' ? 'paper' : 'none';
+  const fill =
+    variant === 'primary' || variant === 'accent'
+      ? 'accent'
+      : variant === 'filled'
+        ? 'paperBright'
+        : 'none';
 
   return (
     <SketchBorder
@@ -44,14 +49,16 @@ export function Button({
       accent={variant === 'accent' ? accent : undefined}
       className={cn(fullWidth && styles.fullWidth, className)}
     >
-      {!isGhost && !disabled && <span className={styles.shadow} aria-hidden="true" />}
       <button
         type="button"
         className={cn(
           styles.button,
           size === 'sm' && styles.sm,
           size === 'lg' && styles.lg,
-          variant === 'ghost' && styles.ghost,
+            variant === 'primary' && styles.primary,
+            variant === 'accent' && styles.primary,
+            variant === 'filled' && styles.filled,
+            variant === 'ghost' && styles.ghost,
           variant === 'link' && styles.link,
         )}
         disabled={disabled}

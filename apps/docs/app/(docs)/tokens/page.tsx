@@ -1,11 +1,11 @@
-import { tokensLight, tokensDark, themes, getInkOnPaperContrastRatio } from '@sketchpad/tokens';
+import { accentPresets, tokensLight, tokensDark, getInkOnPaperContrastRatio } from '@sketchpad/tokens';
 import { CodeBlock, DocHeader } from '../../../components/DocPage';
 import type { DocItem } from '../../../lib/docs-config';
 
 const doc: DocItem = {
   slug: 'tokens',
   name: 'Tokens',
-  description: 'Colors, roughness, stroke weights, and CSS custom properties for light and dark themes.',
+  description: 'Semantic colors, six arcade accents, hard shadows, shape, and motion tokens.',
   status: 'shipped',
 };
 
@@ -37,7 +37,7 @@ import { ThemeProvider, ThemeToggle } from 'sketchpad-ui';
 
 export default function App({ children }) {
   return (
-    <ThemeProvider defaultTheme="system">
+    <ThemeProvider defaultTheme="system" defaultColor="blue">
       <ThemeToggle />
       {children}
     </ThemeProvider>
@@ -45,25 +45,25 @@ export default function App({ children }) {
 }`}
         />
         <p className="docMuted">
-          Manual overrides set <code className="inlineCode">data-sk-theme=&quot;light&quot;</code> or{' '}
-          <code className="inlineCode">&quot;dark&quot;</code> on <code className="inlineCode">&lt;html&gt;</code>.
-          Use the sidebar toggle to try it on this site.
+          Set <code className="inlineCode">defaultColor</code> to blue, yellow, pink, green,
+          orange, or purple. A validated <code className="inlineCode">customAccent</code> accepts
+          any six-digit hex color and derives a readable foreground.
         </p>
       </section>
 
       <section className="docSection">
         <h2 className="docSectionTitle">Contrast</h2>
         <p className="docLead">
-          Light ink on paper: <strong>{lightContrast.toFixed(1)}:1</strong>{' '}
+          Light text on canvas: <strong>{lightContrast.toFixed(1)}:1</strong>{' '}
           {lightContrast >= 4.5 ? '(WCAG AA pass)' : '(fail)'}
         </p>
         <p className="docLead">
-          Dark ink on paper: <strong>{darkContrast.toFixed(1)}:1</strong>{' '}
+          Dark text on canvas: <strong>{darkContrast.toFixed(1)}:1</strong>{' '}
           {darkContrast >= 4.5 ? '(WCAG AA pass)' : '(fail)'}
         </p>
         <p className="docMuted">
-          <code className="inlineCode">pencil</code> is intentionally low-contrast. Use for placeholders and disabled
-          states only.
+          Accent foregrounds are selected automatically; muted colors are reserved for
+          secondary text, placeholders, and disabled states.
         </p>
       </section>
 
@@ -97,8 +97,21 @@ export default function App({ children }) {
       </section>
 
       <section className="docSection">
+        <h2 className="docSectionTitle">ACCENT PRESETS</h2>
+        <div className="tokenGrid">
+          {Object.entries(accentPresets).map(([name, color]) => (
+            <div key={name} className="tokenCard">
+              <div className="tokenSwatchColor" style={{ background: color }} />
+              <strong>{name}</strong>
+              <code>{color}</code>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="docSection">
         <h2 className="docSectionTitle">CSS variables</h2>
-        <p className="docMuted">All color tokens are available as custom properties, e.g. var(--sk-colors-paper).</p>
+        <p className="docMuted">All semantic tokens are custom properties, e.g. var(--sk-colors-surface).</p>
         <div className="tokenGrid">
           {colorKeys.map((name) => (
             <div key={name} className="tokenCard" style={{ background: `var(--sk-colors-${name})` }}>
@@ -110,8 +123,8 @@ export default function App({ children }) {
       </section>
 
       <section className="docSection">
-        <h2 className="docSectionTitle">Roughness</h2>
-        <CodeBlock code={JSON.stringify(themes.light.roughness, null, 2)} />
+        <h2 className="docSectionTitle">SHAPE &amp; MOTION</h2>
+        <CodeBlock code={JSON.stringify({ border: tokensLight.border, radii: tokensLight.radii, shadow: tokensLight.shadow, motion: tokensLight.motion }, null, 2)} />
       </section>
     </article>
   );

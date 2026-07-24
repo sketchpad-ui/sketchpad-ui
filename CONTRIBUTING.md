@@ -1,26 +1,10 @@
-## Contributing
+# Contributing
 
-### Non-goals checklist (every PR)
-
-Before merging, confirm the change does **not** drift toward:
-
-- Neobrutalism (thick uniform borders + solid shadow blocks)
-- Comic / cute doodle kits
-- Material Design, glassmorphism, neumorphism, corporate SaaS, Apple-minimal
-- Messy doodle art — must stay legible at real sizes
-
-### Rules
-
-- Never use `Math.random()` — use `createSeededRandom` from `@sketchpad/sketch-core`
-- Interactive components must use real semantic HTML (`<button>`, `<input>`, etc.)
-- Sketch SVG layers are decorative only (`aria-hidden`)
-- Every hand-drawn element accepts a `seed` prop
-
-### Development
-
-```bash
-pnpm install
-pnpm build
-pnpm dev
-pnpm test
-```
+1. Keep React and Flutter behavior contracts aligned.
+2. Use semantic tokens; never hard-code theme-dependent surface or text colors.
+3. Use uniform borders and hard zero-blur shadows. Do not add sketch paths,
+   gradients, glass, blur, or soft elevation.
+4. Preserve keyboard, touch, reduced-motion, RTL, semantics, and text scaling.
+5. Add React tests, Flutter widget/golden tests, and both documentation snippets.
+6. Run TypeScript checks, the docs production build, `flutter analyze`, and all
+   package tests before submitting changes.

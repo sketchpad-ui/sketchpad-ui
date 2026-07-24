@@ -11,7 +11,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,json,css,md}\"",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "turbo run build --filter=sketchpad-ui --filter=@sketchpad/tokens --filter=@sketchpad/icons && changeset publish"
+    "release": "turbo run build --filter=sketchpad-ui --filter=@sketchpad/tokens && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.10",
@@ -31,5 +31,10 @@
   "packageManager": "pnpm@9.15.0",
   "engines": {
     "node": ">=20"
-  }
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "examples/*"
+  ]
 }

@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { getInkOnPaperContrastRatio, themes, type ThemeName } from './index.js';
+import {
+  accentPresets,
+  getInkOnPaperContrastRatio,
+  getReadableForeground,
+} from './index.js';
+import tokenSource from '../tokens.json';
 
 function contrastRatio(foreground: string, background: string): number {
   const fg = hexToLuminance(foreground);
@@ -20,6 +25,9 @@ function hexToLuminance(hex: string): number {
 }
 
 describe('tokens', () => {
+  it('keeps the platform-neutral token source synchronized', () => {
+    expect(accentPresets).toEqual(tokenSource.accent);
+  });
   it('passes WCAG AA contrast for ink on paper (light)', () => {
     expect(getInkOnPaperContrastRatio('light')).toBeGreaterThanOrEqual(4.5);
   });
@@ -28,12 +36,10 @@ describe('tokens', () => {
     expect(getInkOnPaperContrastRatio('dark')).toBeGreaterThanOrEqual(4.5);
   });
 
-  it.each(['light', 'dark'] satisfies ThemeName[])(
-    'passes WCAG AA for ink on accent fills (%s)',
-    (theme) => {
-      const { ink, accentYellow, accentGreen } = themes[theme].colors;
-      expect(contrastRatio(ink, accentYellow)).toBeGreaterThanOrEqual(4.5);
-      expect(contrastRatio(ink, accentGreen)).toBeGreaterThanOrEqual(4.5);
+  it.each(Object.entries(accentPresets))(
+    'selects a readable foreground for %s',
+    (_name, accent) => {
+      expect(contrastRatio(getReadableForeground(accent), accent)).toBeGreaterThanOrEqual(4.5);
     },
   );
 });

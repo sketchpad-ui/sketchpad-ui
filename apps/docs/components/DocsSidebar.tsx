@@ -3,15 +3,11 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { tokens } from '@sketchpad/tokens';
 import {
   Badge,
   Drawer,
   IconButton,
-  MarkerHighlight,
-  PaperTape,
   SketchBorder,
-  ThemeToggle,
 } from 'sketchpad-ui';
 import {
   components,
@@ -22,6 +18,7 @@ import {
   type DocItem,
 } from '../lib/docs-config';
 import { BrandLogo } from './BrandLogo';
+import { ThemeControls } from './ThemeControls';
 
 function StatusBadge({ status, slug }: { status: ComponentStatus; slug: string }) {
   if (status === 'shipped') return null;
@@ -61,11 +58,6 @@ function SidebarLink({
 
   return (
     <Link href={href} className={`sidebarNavLink ${active ? 'sidebarNavLinkActive' : ''}`} onClick={onNavigate}>
-      {active && (
-        <span className="sidebarNavHighlight" aria-hidden="true">
-          <MarkerHighlight width={200} height={32} accent="yellow" />
-        </span>
-      )}
       <span className="sidebarNavLabel">{name}</span>
       <StatusBadge status={status} slug={slug} />
     </Link>
@@ -124,13 +116,9 @@ function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
 function SidebarPanel({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <div className="docsSidebarLayout">
-      <div className="sidebarTape" aria-hidden="true">
-        <PaperTape />
-      </div>
-
       <div className="sidebarHeader">
         <BrandLogo size={30} />
-        <ThemeToggle className="sidebarThemeToggle" />
+        <ThemeControls />
       </div>
 
       <div className="sidebarBody sk-scrollbar">
@@ -167,10 +155,7 @@ export function DocsSidebar() {
       <aside className="docsSidebarFrame" aria-label="Documentation">
         <SketchBorder
           variant="rounded"
-          seed="docs-sidebar"
           fill="paper"
-          roughness={tokens.roughness.subtle}
-          strokeWidth={tokens.stroke.thin}
           className="docsSidebarBorder"
           style={{
             display: 'flex',

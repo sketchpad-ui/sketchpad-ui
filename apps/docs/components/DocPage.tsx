@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from 'react';
 import { tokens } from '@sketchpad/tokens';
-import { Badge, HandwrittenNote, Paper, SketchBorder, Tooltip } from 'sketchpad-ui';
+import { Badge, Paper, SketchBorder, Tooltip } from 'sketchpad-ui';
 import type { DocItem } from '../lib/docs-config';
 
 export function DocHeader({ doc }: { doc: DocItem }) {
@@ -108,7 +108,7 @@ export function CodeBlock({ code }: { code: string }) {
 export function DemoBlock({ title, children }: { title?: string; children: React.ReactNode }) {
   return (
     <div className="demoBlock">
-      {title && <HandwrittenNote className="demoBlockTitle">{title}</HandwrittenNote>}
+      {title && <h3 className="demoBlockTitle">{title}</h3>}
       <SketchBorder
         variant="rounded"
         seed={`demo-${title ?? 'block'}`}
